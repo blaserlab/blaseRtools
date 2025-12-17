@@ -9,11 +9,14 @@
 #' @importFrom rtracklayer import.bw
 #' @importFrom plyranges mutate select
 bb_import_bw <- function(path, group, coverage_column = "score") {
-  rtracklayer::import.bw(path) |>
-    plyranges::mutate(group = group) |>
-    plyranges::mutate(coverage = !!sym(coverage_column)) |>
-    plyranges::select(-!!sym(coverage_column))
+  gr <- rtracklayer::import.bw(path)
 
+  # Normalize metadata to a consistent schema for downstream plotting
+  mcols(gr)$group <- group
+  mcols(gr)$coverage <- mcols(gr)[[coverage_column]]
+  mcols(gr)[[coverage_column]] <- NULL
+
+  gr
 }
 
 # Function to fill internal gaps with fixed-width tiles
@@ -47,6 +50,13 @@ fill_gaps_with_tiles <- function(gr, fixed_width, plot_range) {
 #' @importFrom BiocGenerics as.data.frame
 #' @importFrom dplyr mutate filter
 buff_granges <- function(x, gen = NULL) {
+  if (length(x) == 0) {
+    if (!is.null(gen)) {
+      GenomeInfoDb::genome(x) <- gen
+    }
+    return(x)
+  }
+
   std_chroms <-
     c(as.character(1:25),
       paste0("chr", 1:25),
@@ -80,6 +90,11 @@ buff_granges <- function(x, gen = NULL) {
 #' @importFrom BiocGenerics as.data.frame
 #' @importFrom dplyr mutate filter
 bb_buff_granges <- function(x, gen) {
+  if (length(x) == 0) {
+    GenomeInfoDb::genome(x) <- gen
+    return(x)
+  }
+
   std_chroms <-
     c(as.character(1:25),
       paste0("chr", 1:25),
@@ -108,6 +123,14 @@ trim_and_drop_levels <- function(x, trim_to, trim_type = "within") {
   seqlevels(x, pruning.mode = "tidy") <- seqlevels(trim_to)
   return(x)
 }
+
+# Internal helper: create an empty GRanges that preserves seqinfo/seqlevels/genome
+.empty_granges_like <- function(template) {
+  gr <- GenomicRanges::GRanges()
+  GenomeInfoDb::seqinfo(gr) <- GenomeInfoDb::seqinfo(template)
+  gr
+}
+
 
 #' An S4 class to Hold Genome Track Data
 #'
@@ -156,7 +179,7 @@ setMethod("show",
 # Validity Check
 #' @export
 setValidity("Trace", function(object) {
-  if (genome(object@trace_data) %notin% c("danRer11", "hg38"))
+  if (!(genome(object@trace_data) %in% c("danRer11", "hg38")))
     return("The trace data genome must be either danRer11 or hg38")
   if (genome(object@trace_data) != genome(object@peaks))
     return("The trace data and peaks genomes must match.")
@@ -205,7 +228,6 @@ setValidity("Trace", function(object) {
 #' @import GenomicRanges tidyverse blaseRdata cli
 #' @importFrom Signac CoveragePlot granges Links
 #' @importFrom purrr map
-#' @importFrom plyranges filter
 #' @export
 bb_makeTrace <- function(obj,
                          gene_to_plot,
@@ -219,19 +241,21 @@ bb_makeTrace <- function(obj,
                          fixed_width = 100) {
   genome <- match.arg(genome, choices = c("hg38", "danRer11"))
 
-  # find the chromosome needed needed
-  available_genes <- c(mcols(hg38_granges_reduced)$gene_name,
-                       mcols(zfin_granges_reduced)$gene_name)
-
+  # get the species-specific gene-model
   if (genome == "hg38") {
-    full_gene_model = hg38_granges_reduced
+    full_gene_model <- hg38_granges_reduced
   } else {
-    full_gene_model = zfin_granges_reduced
+    full_gene_model <- zfin_granges_reduced
   }
 
+  # Restrict availability to the selected genome
+  available_genes <- unique(mcols(full_gene_model)$gene_name)
+
   if (gene_to_plot %in% available_genes) {
-    selected_range <-
-      full_gene_model[mcols(full_gene_model)$gene_name %in% gene_to_plot]
+    selected_range <- full_gene_model[mcols(full_gene_model)$gene_name %in% gene_to_plot]
+    if (length(selected_range) == 0) {
+      cli::cli_abort("Gene `{gene_to_plot}` is not available in the selected genome.")
+    }
     plot_range <- range(selected_range)
   } else {
     cli::cli_abort("This gene is not available")
@@ -288,7 +312,7 @@ bb_makeTrace <- function(obj,
                         pr = plot_range,
                         fw = fixed_width) {
                    # fill in zeros
-                   dat <- plyranges::filter(dat, group == x)
+                   dat <- dat[dat$group == x]
                    fill_gaps_with_tiles(gr = dat, plot_range = pr, fixed_width = fw)
 
                  })
@@ -313,16 +337,8 @@ bb_makeTrace <- function(obj,
  } else if ("Seurat" %in% class(obj)) {
    peaks_to_add <- Signac::granges(obj)
  } else {
-    # add in a zero-length peak to hold the place
-    peaks_to_add <-
-      GRanges(
-        seqnames = levels(seqnames(plot_range)),
-        ranges = IRanges(
-          start = start(plot_range) + 1,
-          end = start(plot_range)
-        )
-      )
-
+    # no peaks supplied
+    peaks_to_add <- .empty_granges_like(plot_range)
   }
 
 
@@ -337,14 +353,8 @@ bb_makeTrace <- function(obj,
   if ("Seurat" %in% class(obj) && !is.null(Signac::Links(obj))) {
     links_to_add <- Signac::Links(obj)
   } else {
-    # add in a zero-length feature to hold the place
-    links_to_add <- GRanges(
-      seqnames = levels(seqnames(plot_range)),
-      ranges = IRanges(
-        start = start(plot_range) + 1,
-        end = start(plot_range)
-      )
-    )
+    # no links supplied
+    links_to_add <- .empty_granges_like(plot_range)
   }
 
   links_to_add <- buff_granges(links_to_add, gen = genome)
@@ -420,13 +430,14 @@ setGeneric("Trace.setData", function(trace, gr)
 #' @export
 setMethod("Trace.setData", "Trace", function(trace, gr) {
   trace@trace_data <- gr
-  # trace@plot_range <-
-  #   trim_and_drop_levels(x = trace@plot_range, trim_to = gr, trim_type = "any")
-  # trace@peaks <-
-  #   trim_and_drop_levels(x = trace@peaks, trim_to = gr)
-  # trace@gene_model <-
-  #   trim_and_drop_levels(x = trace@gene_model, trim_to = gr)
-  # trace@links <- trim_and_drop_levels(x = trace@links, trim_to = gr)
+
+  # Keep the object valid: plot_range must contain trace_data, and other slots
+  # should be trimmed to match the updated range.
+  trace@plot_range <- range(gr)
+  trace@peaks <- trim_and_drop_levels(x = trace@peaks, trim_to = trace@plot_range)
+  trace@gene_model <- trim_and_drop_levels(x = trace@gene_model, trim_to = trace@plot_range)
+  trace@links <- trim_and_drop_levels(x = trace@links, trim_to = trace@plot_range)
+
   validObject(trace)
   trace
 })
@@ -557,15 +568,15 @@ bb_plot_trace_data <- function(trace,
     mutate(mid = width / 2 + start)
 
   if(!is.null(group_filter)) {
-    data_tbl <- dplyr::filter(data_tbl, !!sym(group_variable) == group_filter)
+    data_tbl <- dplyr::filter(data_tbl, !!rlang::sym(group_variable) == group_filter)
   }
 
 
   p <- ggplot(data = data_tbl,
               mapping = aes(x = mid,
-                            y = !!sym(yvar)))
+                            y = !!rlang::sym(yvar)))
   if (!is.null(color_var)) {
-    p <- p + geom_line(aes(color = !!sym(color_var)))
+    p <- p + geom_line(aes(color = !!rlang::sym(color_var)))
   } else {
     p <- p + geom_line()
   }
@@ -577,7 +588,7 @@ bb_plot_trace_data <- function(trace,
 
   if (!is.null(facet_var)) {
     p <- p + facet_wrap(
-      facets = vars(!!sym(facet_var)),
+      facets = vars(!!rlang::sym(facet_var)),
       ncol = 1,
       strip.position = "left"
     ) +
@@ -611,7 +622,7 @@ bb_plot_trace_peaks <- function(trace,
                                 pal = NULL) {
   gr <- Trace.peaks(trace)
 
-  if (start(gr[1]) > end(gr[1])) {
+  if (length(gr) == 0) {
     cli::cli_abort("This trace object contains no peaks!")
   }
 
@@ -623,7 +634,7 @@ bb_plot_trace_peaks <- function(trace,
     mutate(type = "Peaks")
 
   if(!is.null(group_filter)) {
-    gr_tbl <- dplyr::filter(gr_tbl, !!sym(group_variable) == group_filter)
+    gr_tbl <- dplyr::filter(gr_tbl, !!rlang::sym(group_variable) == group_filter)
   }
 
   p <- ggplot(data = gr_tbl,
@@ -635,7 +646,7 @@ bb_plot_trace_peaks <- function(trace,
       geom_tile(color = "black", fill = "grey60")
   } else {
     p <- p +
-      geom_tile(color = "black", aes(fill = !!sym(group_variable))) +
+      geom_tile(color = "black", aes(fill = !!rlang::sym(group_variable))) +
       scale_fill_manual(values = pal) +
       theme(legend.position = "none")
   }
@@ -670,7 +681,7 @@ bb_plot_trace_links <- function(trace,
                                 link_high_color = "red3",
                                 link_range = c(0,1)) {
   gr <- Trace.links(trace)
-  if (start(gr[1]) > end(gr[1])) {
+  if (length(gr) == 0) {
     cli::cli_abort("This trace object contains no links!")
   }
 
@@ -928,13 +939,16 @@ formatter1000 <- function(x){
 #' @importFrom readr read_tsv
 #' @importFrom dplyr select mutate
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
-bb_import_seacr_peaks <- function(file, group_variable = NULL, group_value) {
+bb_import_seacr_peaks <- function(file, group_variable = NULL, group_value = NULL) {
   tbl <- readr::read_tsv(file, col_names = c("chr", "start", "end", "total_signal", "max_signal", "region")) |>
     dplyr::select(c(chr, start, end))
 
-  if(!is.null(group_variable)) {
+  if (!is.null(group_variable)) {
+    if (is.null(group_value)) {
+      cli::cli_abort("`group_value` must be provided when `group_variable` is not NULL.")
+    }
     tbl <- tbl |>
-      dplyr::mutate(!!group_variable := group_value)
+      dplyr::mutate(!!rlang::sym(group_variable) := group_value)
   }
   GenomicRanges::makeGRangesFromDataFrame(tbl, keep.extra.columns = TRUE)
 }
@@ -956,7 +970,7 @@ bb_import_seacr_peaks <- function(file, group_variable = NULL, group_value) {
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 bb_import_macs_narrowpeaks <- function(file,
                                         group_variable = NULL,
-                                        group_value){
+                                        group_value = NULL){
   tbl <- readr::read_tsv(
     file,
     col_names = c(
@@ -974,7 +988,10 @@ bb_import_macs_narrowpeaks <- function(file,
   ) |> dplyr::select(c(chr = chrom, start = chromStart, end = chromEnd))
 
   if (!is.null(group_variable)) {
-    tbl <- dplyr::mutate(tbl, `:=`(!!group_variable, group_value))
+    if (is.null(group_value)) {
+      cli::cli_abort("`group_value` must be provided when `group_variable` is not NULL.")
+    }
+    tbl <- dplyr::mutate(tbl, !!rlang::sym(group_variable) := group_value)
   }
   GenomicRanges::makeGRangesFromDataFrame(tbl, keep.extra.columns = TRUE)
 }

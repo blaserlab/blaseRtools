@@ -454,12 +454,13 @@
 
 * fixed bb_blind_images
 
-# blaseRtools 0.0.0.9191
+# blaseRtools 0.0.0.9191-5
 
 * fixed bug in filter_cds that returned all of the cells if filtering returns 0 lines
 * fixed namespace issues in bb_doubletfinder
 
-# todo
 
-* biaxial cite-seq plots
-* consensus reference columns
+# blaseRtools 0.0.0.9196
+
+* removed dependency on plyranges::filter which was removed upstream
+* used ChatGPT to clean up trace_funcs.R; prelim testing seems ok.

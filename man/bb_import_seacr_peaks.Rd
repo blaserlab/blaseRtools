@@ -5,9 +5,9 @@
 \alias{bb_import_macs_narrowpeaks}
 \title{Import Peaks from SEACR}
 \usage{
-bb_import_seacr_peaks(file, group_variable = NULL, group_value)
+bb_import_seacr_peaks(file, group_variable = NULL, group_value = NULL)
 
-bb_import_macs_narrowpeaks(file, group_variable = NULL, group_value)
+bb_import_macs_narrowpeaks(file, group_variable = NULL, group_value = NULL)
 }
 \arguments{
 \item{file}{file path to the MACS narrowpeak file}
