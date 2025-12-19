@@ -7,7 +7,6 @@
 #' @rdname bb_import_bw
 #' @export
 #' @importFrom rtracklayer import.bw
-#' @importFrom plyranges mutate select
 bb_import_bw <- function(path, group, coverage_column = "score") {
   gr <- rtracklayer::import.bw(path)
 
@@ -21,26 +20,36 @@ bb_import_bw <- function(path, group, coverage_column = "score") {
 
 # Function to fill internal gaps with fixed-width tiles
 #' @importFrom GenomicRanges gaps tile sort
-#' @importFrom plyranges mutate
-#' @importFrom tidyr replace_na
 fill_gaps_with_tiles <- function(gr, fixed_width, plot_range) {
-  # Get the gaps
+  # Ensure expected metadata columns exist on the input
+  if (!"coverage" %in% names(S4Vectors::mcols(gr))) gr$coverage <- NA_real_
+  if (!"group"    %in% names(S4Vectors::mcols(gr))) gr$group    <- NA
+
+  # Get gaps and tile them
   gaps <- GenomicRanges::gaps(gr)
-  # Tile the gaps
-  tiled_gaps <- GenomicRanges::tile(gaps, width = fixed_width)
-  # Unlist the tiled gaps
-  tiled_gaps <- unlist(tiled_gaps)
-  # Combine the original GRanges with the tiled gaps
-  combined_gr <- c(gr, tiled_gaps)
+  tiled_gaps <- unlist(GenomicRanges::tile(gaps, width = fixed_width))
 
-  # Sort the combined GRanges
-  combined_gr <- GenomicRanges::sort(combined_gr)
-  combined_gr <- trim_and_drop_levels(combined_gr, trim_to = plot_range) |>
-    plyranges::mutate(coverage = tidyr::replace_na(coverage, 0)) |>
-    plyranges::mutate(group = tidyr::replace_na(group, unique(gr$group)))
+  # Combine + sort + trim
+  combined_gr <- GenomicRanges::sort(c(gr, tiled_gaps))
+  combined_gr <- trim_and_drop_levels(combined_gr, trim_to = plot_range)
 
+  # Fill NAs in metadata (plyranges::mutate replacement)
+  if (!"coverage" %in% names(S4Vectors::mcols(combined_gr))) combined_gr$coverage <- NA_real_
+  if (!"group"    %in% names(S4Vectors::mcols(combined_gr))) combined_gr$group    <- NA
 
-  return(combined_gr)
+  combined_gr$coverage[is.na(combined_gr$coverage)] <- 0
+
+  default_group <- unique(gr$group)
+  if (length(default_group) == 0L) {
+    default_group <- NA
+  } else if (length(default_group) > 1L) {
+    warning("Multiple unique values in gr$group; using the first: ", default_group[1])
+    default_group <- default_group[1]
+  }
+
+  combined_gr$group[is.na(combined_gr$group)] <- default_group
+
+  combined_gr
 }
 
 

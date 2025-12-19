@@ -460,7 +460,7 @@
 * fixed namespace issues in bb_doubletfinder
 
 
-# blaseRtools 0.0.0.9196
+# blaseRtools 0.0.0.9196-7
 
 * removed dependency on plyranges::filter which was removed upstream
 * used ChatGPT to clean up trace_funcs.R; prelim testing seems ok.
