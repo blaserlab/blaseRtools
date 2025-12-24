@@ -1,10 +1,15 @@
 devtools::load_all()
+vignette_cds
+
+bb_gene_umap(vignette_cds, "CD3E")
+
+bb_cellmeta(vignette_cds)
+
+pseudosamples <- bb_cellmeta(vignette_cds) |> group_by(sample, leiden_assignment) |> summarise()
+pseudosamples
+
+res <- bb_pseudobulk_mf(vignette_cds, pseudosample_table = pseudosamples, design_formula = "~leiden_assignment", result_recipe = c("leiden_assignment", "B", "T/NK"))
+
+res$Result |> arrange(padj)
 
 
-filter_cds(vignette_cds, cells = bb_cellmeta(vignette_cds) |> dplyr::filter(sample == "chromium_X"))
-filter_cds(vignette_cds, cells = bb_cellmeta(vignette_cds) |> dplyr::filter(sample == "chromium_Y"))
-filter_cds(vignette_cds, cells = "all")
-
-filter_cds(vignette_cds, genes = bb_rowmeta(vignette_cds) |> dplyr::filter(gene_short_name == "CD8A"))
-filter_cds(vignette_cds, genes = bb_rowmeta(vignette_cds) |> dplyr::filter(gene_short_name == "CD8Z"))
-filter_cds(vignette_cds, genes = "all")

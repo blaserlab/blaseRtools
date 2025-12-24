@@ -136,7 +136,9 @@
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/merge.Matrix.html</loc></url>
 <url><loc>/reference/normalize_batch.html</loc></url>
+<url><loc>/reference/project_data.html</loc></url>
 <url><loc>/reference/rBind.fill.html</loc></url>
+<url><loc>/reference/save_monocle_disk.html</loc></url>
 <url><loc>/reference/se.html</loc></url>
 <url><loc>/reference/show-Ape-method.html</loc></url>
 <url><loc>/reference/show-Trace-method.html</loc></url>
