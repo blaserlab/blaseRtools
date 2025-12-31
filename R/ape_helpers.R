@@ -1,21 +1,22 @@
 #' @importFrom purrr imap_chr map_chr
-#' @importFrom stringr str_extract str_pad
+#' @importFrom stringr str_extract str_pad str_split
 dnastring_to_origin <-
    function(dna) {
       nucleotides <- as.character(dna)
       nucleotides <-
-         str_split(gsub("(.{10})", "\\1 ", nucleotides),
+         stringr::str_split(gsub("(.{10})", "\\1 ", nucleotides),
                    pattern = " ",
                    n = Inf)
       nucleotides <- unlist(nucleotides)
       nucleotides <- nucleotides[nucleotides != ""]
       nucleotides <-
-         purrr::imap_chr(.x = nucleotides, ~ paste0(.y, "_", .x))
+         purrr::imap_chr(.x = nucleotides, .f = \(x, idx) paste0(idx, "_", x))
 
       nucleotides <-
          purrr::map_chr(
             .x = nucleotides,
             .f = function(x) {
+               x <- stringr::str_remove(x, "ape_seq")
                digit <- as.numeric(stringr::str_extract(x, "^[:digit:]*"))
                new_digit <- (digit - 1) * 10 + 1
                chars <- stringr::str_extract(x, "[:alpha:]+")
@@ -28,7 +29,7 @@ dnastring_to_origin <-
          purrr::map_chr(
             .x = nucleotides,
             .f = function(x) {
-               digit <- as.numeric(stringr::str_extract(x, "^[:digit:]*"))
+              digit <- as.numeric(stringr::str_extract(x, "^[:digit:]*"))
                if (digit %% 60 == 1) {
                   new_digit <- digit
                   new_digit <-

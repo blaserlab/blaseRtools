@@ -210,7 +210,7 @@ project_data <- function(path, deconflict_string = "") {
         datapackage_stem
       }
     )
-  
+
   purrr::walk(
     .x = paste0("datasets:", package),
     .f = \(x) detach(name = x, character.only = TRUE)
@@ -273,7 +273,7 @@ project_data <- function(path, deconflict_string = "") {
         delayedAssign(
           x = paste0(OBJ, STR),
           value =
-            blaseRtemplates::loadRData(fs::path(
+            loadRData(fs::path(
               fs::path_package(PKG), "data", paste0(OBJ, ".rda")
             )),
           eval.env = globalenv(),

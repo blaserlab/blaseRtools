@@ -1,0 +1,485 @@
+# blaseRtools
+
+This R package includes commonly used functions for R analysis in the
+Blaser Lab.
+
+## Installation
+
+You can install the latest version of blaseRtools with:
+
+``` r
+# using base function
+install.packages('blaseRtools', repos = c('https://blaserlab.r-universe.dev', 'https://cloud.r-project.org'))
+
+# or if using blaseRtemplates function
+blaseRtemplates::install_one_package("blaseRtools", "new")
+```
+
+## Useage
+
+All commonly used functions for the end user are prefixed “bb\_”. If you
+load the blaseRtools package and supporting data with
+
+Then if you run \`\`library(“blaseRtools”)\`\`\` you can access
+functions by typing “bb\_” and an autocomplete window with selections
+should pop up.
+
+Functions related to the “Ape” and “Trace” classes are prefixed “Ape.”
+and “Trace.”, respectively.
+
+## Function Modules
+
+All functions are documented and have help pages which can be reviewed
+after installation. Tutorials describing typical use-cases for each
+module of functions are linked when available.
+
+- [scRNA-seq](pages/scRNAseq.md)
+  - bb_align
+  - bb_annotate_npc
+  - bb_cellmeta
+  - bb_cluster_representation
+  - bb_doubletfinder
+  - bb_gene_dotplot
+  - bb_gene_modules
+  - bb_gene_pseudotime
+  - bb_gene_umap
+  - bb_gene_violinplot
+  - bb_goenrichment
+  - bb_gosummary
+  - bb_load_tenx_targz
+  - bb_monocle_regression
+  - bb_pseudobulk_mf
+  - bb_qc
+  - bb_rejoin
+  - bb_rowmeta
+  - bb_seurat_anno
+  - bb_triplecluster
+  - bb_var_umap
+- [Ape class](pages/Ape.md): Programmatic methods for working with
+  genbank files.
+  - Ape.DNA
+  - Ape.fasta
+  - Ape.fimo
+  - Ape.granges
+  - Ape.save
+  - Ape.setFeatures
+  - bb_parseape
+  - bb_make_ape_genomic
+  - bb_make_ape_transcript
+- Trace class: A container for working with range-based data from ATAC
+  and ChIP-seq experiments.
+  - bb_buff_granges
+  - bb_makeTrace
+  - bb_merge_narrowpeaks
+  - bb_metafeature
+  - bb_plot_trace_axis
+  - bb_plot_trace_data
+  - bb_plot_trace_feature
+  - bb_plot_trace_links
+  - bb_plot_trace_model
+  - bb_plot_footprint
+  - bb_promoter_overlap
+  - bb_read_bam
+  - bb_read_narrowpeak
+  - Trace.data
+  - Trace.features
+  - Trace.gene_model
+  - Trace.links
+  - Trace.plot_range
+  - Trace.setFeatures
+  - Trace.setLinks
+  - Trace.setRange
+- Image blinding for quantitative analysis
+  - bb_blind_images
+  - bb_unblind_images
+
+# Package index
+
+## All functions
+
+- [`Ape-class`](Ape-class.md) [`Ape`](Ape-class.md) : An S4 class to
+  hold genebank/APE file data.
+
+- [`Ape.DNA()`](Ape.DNA.md) : Get the DNASringSet Slot from an Ape
+  Object
+
+- [`Ape.fasta()`](Ape.fasta.md) : Save an Ape Instance as a Fasta File
+
+- [`Ape.fimo()`](Ape.fimo.md) : Run FIMO on Selected Ape Object Features
+
+- [`Ape.granges()`](Ape.granges.md) : Get the GRanges Slot from an Ape
+  Object
+
+- [`Ape.save()`](Ape.save.md) : Save an Ape Instance as a Genebank
+  Format File
+
+- [`Ape.setFeatures()`](Ape.setFeatures.md) : Set the FEATURES Slot of a
+  GRanges Object
+
+- [`COMMENTS()`](COMMENTS.md) : Get the Comments Slot from an Ape Object
+
+- [`FEATURES()`](FEATURES.md) : Get the Features Slot from an Ape Object
+
+- [`show(`*`<Image_>`*`)`](Image-class.md)
+  [`file_path()`](Image-class.md)
+  [`` `file_path<-`() ``](Image-class.md) [`species()`](Image-class.md)
+  [`` `species<-`() ``](Image-class.md) [`stage()`](Image-class.md)
+  [`` `stage<-`() ``](Image-class.md) [`genetics()`](Image-class.md)
+  [`` `genetics<-`() ``](Image-class.md) [`treatment()`](Image-class.md)
+  [`` `treatment<-`() ``](Image-class.md)
+  [`microscope()`](Image-class.md)
+  [`` `microscope<-`() ``](Image-class.md) [`mag()`](Image-class.md)
+  [`` `mag<-`() ``](Image-class.md) [`filter()`](Image-class.md)
+  [`` `filter<-`() ``](Image-class.md) [`use()`](Image-class.md)
+  [`` `use<-`() ``](Image-class.md) [`note()`](Image-class.md)
+  [`` `note<-`() ``](Image-class.md) : An S4 Class for Holding Image
+  Metadata
+
+- [`show(`*`<ImageCatalog>`*`)`](ImageCatalog-class.md)
+  [`` `[`( ``*`<ImageCatalog>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](ImageCatalog-class.md)
+  [`` `[[`( ``*`<ImageCatalog>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](ImageCatalog-class.md)
+  [`` `$`( ``*`<ImageCatalog>`*`)`](ImageCatalog-class.md)
+  [`ImageCatalog.as_tibble()`](ImageCatalog-class.md)
+  [`ImageCatalog.write()`](ImageCatalog-class.md)
+  [`ImageCatalog.add()`](ImageCatalog-class.md)
+  [`ImageCatalog.delete()`](ImageCatalog-class.md) : An S4 Image Catalog
+
+- [`LOCUS()`](LOCUS.md) : Get the Locus Slot from an Ape Object
+
+- [`LearnGraph()`](LearnGraph.md) :
+
+  Run `link[monocle3]{learn_graph}` on a
+  [`Seurat`](https://satijalab.org/seurat/reference/Seurat-package.html)
+  object
+
+- [`blaseRtools`](SeuratWrappers-package.md)
+  [`blaseRtools-package`](SeuratWrappers-package.md)
+  [`SeuratWrappers-package`](SeuratWrappers-package.md) : blaseRtools: R
+  Tools for Blaser Lab Data Analysis
+
+- [`SummarizedHeatmap()`](SummarizedHeatmap.md) : An S4 Class for
+  Holding Heatmap Data
+
+- [`Trace-class`](Trace-class.md) [`Trace`](Trace-class.md) : An S4
+  class to Hold Genome Track Data
+
+- [`Trace.data()`](Trace.data.md) : Get the Trace Data Slot from a Trace
+  Object
+
+- [`Trace.gene_model()`](Trace.gene_model.md) : Get the gene_model Slot
+  from a Trace Object
+
+- [`Trace.links()`](Trace.links.md) : Get the Links Slot from a Trace
+  Object
+
+- [`Trace.peaks()`](Trace.peaks.md) : Get the peaks Slot from a Trace
+  Object
+
+- [`Trace.plot_range()`](Trace.plot_range.md) : Get the plot_range Slot
+  from a Trace Object
+
+- [`Trace.setData()`](Trace.setData.md) : Set the Trace Data Slot of a
+  GRanges Object
+
+- [`Trace.setLinks()`](Trace.setLinks.md) : Set the Links Slot of a
+  GRanges Object
+
+- [`Trace.setRange()`](Trace.setRange.md) : Set the Plot Range Slot of a
+  GRanges Object
+
+- [`Trace.setpeaks()`](Trace.setpeaks.md) : Set the peaks Slot of a
+  GRanges Object
+
+- [`add_cds_factor_columns()`](add_cds_factor_columns.md) : Add
+  predefined sample-level cell metadata to cell data sets while
+  importing
+
+- [`aggregate(`*`<Matrix>`*`)`](aggregate.Matrix.md) : Compute summary
+  statistics of a Matrix
+
+- [`as.Seurat(`*`<cell_data_set>`*`)`](as.Seurat.extras.md) : Convert
+  single cell experiment to Seurat
+
+- [`as.cell_data_set()`](as.cell_data_set.md) :
+
+  Convert objects to Monocle3 `cell_data_set` objects
+
+- [`bb_aggregate()`](bb_aggregate.md) : Aggregate Single Cell Gene
+  Expression
+
+- [`bb_align()`](bb_align.md) : Align a CDS object according to a
+  metadata variable
+
+- [`bb_annotate_npc()`](bb_annotate_npc.md) : Annotate a Plot using NPC
+  Coordinates
+
+- [`bb_blind_images()`](bb_blind_images.md) : Make a Copy of Image Files
+  and Rename With File Hashes in Blinded Folder
+
+- [`bb_buff_granges()`](bb_buff_granges.md) : Clean Up Your GRanges
+  Object
+
+- [`bb_cds_anno()`](bb_cds_anno.md) : Annotate a CDS by Label Transfer
+
+- [`bb_cds_heatmap()`](bb_cds_heatmap.md) : Make a Heatmap of Aggregated
+  Gene Expressionf from a CDS
+
+- [`bb_cellchat()`](bb_cellchat.md) : Infer Cell-Cell Communication
+
+- [`bb_cellchat_heatmap()`](bb_cellchat_heatmap.md) : Make a Complex
+  Heatmap From a CellChat Object With Sensible Defaults
+
+- [`bb_cellmeta()`](bb_cellmeta.md) : Get Cell Metadata
+
+- [`bb_cite_umap()`](bb_cite_umap.md) : Plot a UMAP Showing Cite-Seq
+  Antibody Binding
+
+- [`bb_cluster_representation()`](bb_cluster_representation.md) :
+  Cluster Representation By Fisher Exact Test Per Cell
+
+- [`bb_cluster_representation2()`](bb_cluster_representation2.md) :
+  Cluster Representation By Regression Per Sample
+
+- [`bb_daseq()`](bb_daseq.md) : Calculate Differential Abundance Using
+  DAseq
+
+- [`bb_doubletfinder()`](bb_doubletfinder.md) : Use doubletfinder to
+  model and mark doublets
+
+- [`bb_extract_msig()`](bb_extract_msig.md) : Extract MSIGDB Gene Sets
+
+- [`bb_fix_file_path()`](bb_fix_file_path.md) : Convert windows filepath
+  to linux-compatible.
+
+- [`bb_fragment_replacement()`](bb_fragment_replacement.md) : Replace
+  The Path to a Fragment File In a Signac Object
+
+- [`bb_gene_dotplot()`](bb_gene_dotplot.md) : Make a dotplot of gene
+  expression by cell population
+
+- [`bb_gene_modules()`](bb_gene_modules.md) : A function to generate
+  gene modules and add them to the Gene Metadata
+
+- [`bb_gene_pseudotime()`](bb_gene_pseudotime.md) : Plot expression of a
+  gene or genes in pseudotime.
+
+- [`bb_gene_umap()`](bb_gene_umap.md) : Make a Plot of Gene Expression
+  in UMAP Form
+
+- [`bb_gene_violinplot()`](bb_gene_violinplot.md) : Make a plot of gene
+  expression in UMAP form
+
+- [`bb_genebubbles()`](bb_genebubbles.md) : Create a Gene Bubble/Dot
+  Plot
+
+- [`bb_goenrichment()`](bb_goenrichment.md) : Go Term Enrichment
+
+- [`bb_goscatter()`](bb_goscatter.md) : Make a scatter plot of GO term
+  associations
+
+- [`bb_gosummary()`](bb_gosummary.md) : A function to reduce go terms by
+  semantic similarity
+
+- [`bb_import_bw()`](bb_import_bw.md) : Import a Big Wig File
+
+- [`bb_import_seacr_peaks()`](bb_import_seacr_peaks.md)
+  [`bb_import_macs_narrowpeaks()`](bb_import_seacr_peaks.md) : Import
+  Peaks from SEACR
+
+- [`bb_load_tenx_h5()`](bb_load_tenx_h5.md) : Load a 10X Genomics H5
+  File and Return a CDS
+
+- [`bb_load_tenx_targz()`](bb_load_tenx_targz.md) : Load 10X Data Into
+  CDS
+
+- [`bb_loupeR()`](bb_loupeR.md) : Create a Loupe File from a Cell Data
+  Set
+
+- [`bb_makeTrace()`](bb_makeTrace.md) : Construct a Trace object from a
+  Signac Object or Granges object
+
+- [`bb_make_ape_genomic()`](bb_make_ape_genomic.md) : Make an Ape Genome
+  Object
+
+- [`bb_make_ape_transcript()`](bb_make_ape_transcript.md) : Make an Ape
+  Transcriptome Object
+
+- [`bb_merge_narrowpeaks()`](bb_merge_narrowpeaks.md) : A Function To
+  Merge Replicate Narrow Peaks GRanges
+
+- [`bb_metafeature()`](bb_metafeature.md) : A Function to Generate Data
+  For Making MetaPlots
+
+- [`bb_monocle_()`](bb_monocle_.md)
+  [`bb_monocle_anno()`](bb_monocle_.md)
+  [`bb_monocle_project()`](bb_monocle_.md) : Annotate Single cell Data
+  Using Monocle3
+
+- [`bb_monocle_regression()`](bb_monocle_regression.md) : A function to
+  perform regression on single cell data.
+
+- [`bb_monocle_regression_better()`](bb_monocle_regression_better.md) :
+  An Improved Function to Perform Regression on Single Cell Data.
+
+- [`bb_parseape()`](bb_parseape.md) : Parse a Genebank File and
+  Construct an APE Object
+
+- [`bb_plot_genes_in_pseudotime()`](bb_plot_genes_in_pseudotime.md) :
+  Plots expression for one or more genes as a function of pseudotime
+
+- [`bb_plot_heatmap_colData()`](bb_plot_heatmap_colData.md) : Plot
+  SummarizedHeatmap colData
+
+- [`bb_plot_heatmap_colDendro()`](bb_plot_heatmap_colDendro.md) : Plot a
+  Heatmap Column Dendrogram
+
+- [`bb_plot_heatmap_colHighlight()`](bb_plot_heatmap_colHighlight.md) :
+  Plot a Column Highlight
+
+- [`bb_plot_heatmap_main()`](bb_plot_heatmap_main.md) : Plot the Body of
+  Heatmap
+
+- [`bb_plot_heatmap_rowData()`](bb_plot_heatmap_rowData.md) : Plot a
+  SummarizedHeatmap rowData
+
+- [`bb_plot_heatmap_rowDendro()`](bb_plot_heatmap_rowDendro.md) : Plot a
+  Heatmap Row Dendrogram
+
+- [`bb_plot_heatmap_rowHighlight()`](bb_plot_heatmap_rowHighlight.md) :
+  Plot a Row Highlight
+
+- [`bb_plot_rowData_col()`](bb_plot_rowData_col.md) : A helper function
+  to generate a data frame in the proper form for aggregate expression
+  plotting with bb_gene_umap.
+
+- [`bb_plot_trace_axis()`](bb_plot_trace_axis.md) : Plot The X Axis From
+  A Trace Object
+
+- [`bb_plot_trace_data()`](bb_plot_trace_data.md) : Plot The Trace Data
+  From A Trace Object
+
+- [`bb_plot_trace_links()`](bb_plot_trace_links.md) : Plot The Link Data
+  From A Trace Object
+
+- [`bb_plot_trace_model()`](bb_plot_trace_model.md) : Plot The Gene
+  Model From A Trace Object
+
+- [`bb_plot_trace_peaks()`](bb_plot_trace_peaks.md) : Plot The peak Data
+  From A Trace Object
+
+- [`bb_plotfootprint()`](bb_plotfootprint.md) : Plot motif footprinting
+  results
+
+- [`bb_print_full_stats()`](bb_print_full_stats.md) : Print out a stats
+  report
+
+- [`bb_promoter_overlap()`](bb_promoter_overlap.md) : Calculate The
+  Overlap Between Peaks and Promoters
+
+- [`bb_pseudobulk_mf()`](bb_pseudobulk_mf.md) : Run Multifactor
+  Pseudobulk Analysis using Deseq2
+
+- [`bb_pseudocells()`](bb_pseudocells.md) : Generate a CDS from Bulk
+  RNA-seq data
+
+- [`bb_pseudotime()`](bb_pseudotime.md) : Learn Graph and Calculate
+  Pseudotime
+
+- [`bb_qc()`](bb_qc.md) : A function to run qc tests on cds objects.
+
+- [`bb_read_bam()`](bb_read_bam.md) : Read Bam Files
+
+- [`bb_read_narrowpeak()`](bb_read_narrowpeak.md) : A Function to Read
+  In Narrow Peaks Files
+
+- [`bb_rejoin()`](bb_rejoin.md) : Rejoin qc and doubletfinder data to a
+  cds object
+
+- [`bb_remove_dupes()`](bb_remove_dupes.md) : Remove rows that have
+  duplicates in a given column
+
+- [`bb_rowmeta()`](bb_rowmeta.md) : Get Feature/Gene Metadata
+
+- [`bb_seurat_anno()`](bb_seurat_anno.md) : A function to generate
+  automated cell labelings with Seurat
+
+- [`bb_split_atac()`](bb_split_atac.md) : Split Out Peaks Data
+
+- [`bb_split_citeseq()`](bb_split_citeseq.md) : Split Antibody Capture
+  Data into Alt Experiment
+
+- [`bb_tbl_to_coldata()`](bb_tbl_to_coldata.md) : A Function To Add
+  Tibble Columns To Cell Metadata
+
+- [`bb_tbl_to_matrix()`](bb_tbl_to_matrix.md) : Convert a wide-form
+  tibble a matrix
+
+- [`bb_tbl_to_rowdata()`](bb_tbl_to_rowdata.md) : A Function To Add
+  Tibble Columns To Feature Metadata
+
+- [`bb_triplecluster()`](bb_triplecluster.md) : A function to generate
+  clusters from scRNA-seq data
+
+- [`bb_unblind_images()`](bb_unblind_images.md) : Rejoin Blinded Scores
+  to Original File Names
+
+- [`bb_var_umap()`](bb_var_umap.md) : A function to generate a UMAP with
+  colors mapped to colData variables
+
+- [`dMcast()`](dMcast.md) :
+
+  Casts or pivots a long `data frame` into a wide sparse matrix
+
+- [`data_median_se()`](data_median_se.md) : Generate median +/- se stat
+  object for jitter ggplot
+
+- [`data_summary_mean_sd()`](data_summary_mean_sd.md) : Generate mean
+  +/- sd stat object for jitter ggplot
+
+- [`data_summary_mean_se()`](data_summary_mean_se.md) : Generate mean
+  +/- se stat object for jitter ggplot
+
+- [`data_summary_median_iqr()`](data_summary_median_iqr.md) : Generate
+  median +/- iqr stat object for jitter ggplot
+
+- [`data_summary_median_mad()`](data_summary_median_mad.md) : Generate
+  median +/- mad stat object for jitter ggplot
+
+- [`filter_cds()`](filter_cds.md) : Filter a CDS
+
+- [`geom_split_violin()`](geom_split_violin.md) : geom_split_violin
+
+- [`granges_to_features()`](granges_to_features.md) : Format a GRanges
+  Object as a Character Vector For Inclusion in Genebank File
+
+- [`` `%notin%` ``](grapes-notin-grapes.md) : Operators
+
+- [`merge.Matrix()`](merge.Matrix.md) [`join.Matrix()`](merge.Matrix.md)
+  : Merges two Matrices or matrix-like objects
+
+- [`normalize_batch()`](normalize_batch.md) : Noramalize a Data Table by
+  Group and Batch
+
+- [`project_data()`](project_data.md) : Activate Project Data
+
+- [`rBind.fill()`](rBind.fill.md) : Combine matrixes by row, fill in
+  missing columns
+
+- [`save_monocle_disk()`](save_monocle_disk.md) : Save a monocle3 cds
+  object on disk
+
+- [`se()`](se.md) : Calculate standard error of the mean
+
+- [`show(`*`<Ape>`*`)`](show-Ape-method.md) : Show an Ape Object
+
+- [`show(`*`<Trace>`*`)`](show-Trace-method.md) : Show a Trace Object
+
+# Articles
+
+### All vignettes
+
+- [Reading, Editing and Writing DNA Sequences with Ape](Ape.md):
+- [Blinding Images](blind_images.md):
+- [scRNA-seq Data Analysis](scRNAseq.md):
+- [Summarized Heatmap Vignette](SummarizedHeatmap.md):
+- [Trace: Representing Track-like Data in R](trace.md):

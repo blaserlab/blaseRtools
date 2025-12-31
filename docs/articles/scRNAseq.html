@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">blaseRtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9198</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9199</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -240,7 +240,7 @@ plots and do differential gene expression if you like.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://conflicted.r-lib.org/" class="external-link">conflicted</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html" class="external-link">conflict_prefer</a></span><span class="op">(</span><span class="st">"filter"</span>, <span class="st">"dplyr"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html" class="external-link">theme_cowplot</a></span><span class="op">(</span>font_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html" class="external-link">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html" class="external-link">theme_cowplot</a></span><span class="op">(</span>font_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Read in the analysis configuration file. Here I am reading it from
 the blaseRdata package but you would substitute your own file path.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -512,7 +512,7 @@ temporary object once we are satisfied.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">vignette_cds_aligned_temp</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_var_umap.html">bb_var_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, var <span class="op">=</span> <span class="st">"sample"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <p>You can see that the pre-alignment dimensions are stored in the cell
 metadata so you can plot them later if you want.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -538,7 +538,7 @@ metadata so you can plot them later if you want.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_var_umap.html">bb_var_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, var <span class="op">=</span> <span class="st">"sample"</span>, </span>
 <span>            alt_dim_x <span class="op">=</span> <span class="st">"prealignment_dim1"</span>, </span>
 <span>            alt_dim_y <span class="op">=</span> <span class="st">"prealignment_dim2"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="clustering">Clustering<a class="anchor" aria-label="anchor" href="#clustering"></a>
@@ -582,13 +582,13 @@ not necessary) you need to use the original monocle functions.</p>
 <p>Now you can plot the cells and color by cluster type</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_var_umap.html">bb_var_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, var <span class="op">=</span> <span class="st">"partition"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-21-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_var_umap.html">bb_var_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, var <span class="op">=</span> <span class="st">"leiden"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-21-2.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-21-2.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_var_umap.html">bb_var_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, var <span class="op">=</span> <span class="st">"louvain"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-21-3.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-21-3.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="gene-modules">Gene modules<a class="anchor" aria-label="anchor" href="#gene-modules"></a>
@@ -682,13 +682,13 @@ would’ve landed if they were processed in the reference dataset.</p>
 <span>            alt_dim_y <span class="op">=</span> <span class="st">"seurat_dim2"</span>, </span>
 <span>            overwrite_labels <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>            group_label_size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-26-1.png" width="528" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-26-1.png" class="r-plt" alt="" width="528" style="display: block; margin: auto;"></p>
 <p>Or you can plot them using their own dimension reduction coordinates.
 I think this method is better because it reflects the data more
 accurately.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_var_umap.html">bb_var_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, var <span class="op">=</span> <span class="st">"seurat_celltype_l1"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-27-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-27-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="cell-assignments">Cell Assignments<a class="anchor" aria-label="anchor" href="#cell-assignments"></a>
@@ -711,7 +711,7 @@ made very easily if you need to do so.</p>
 useful and give all of the cells in that cluster the same name.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_var_umap.html">bb_var_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, var <span class="op">=</span> <span class="st">"leiden"</span>, plot_title <span class="op">=</span> <span class="st">"Leiden Clusters"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-28-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-28-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <p>This is a low-throughput dataset with relatively low resolution, but
 it illustrates the method.</p>
 <p>There are a few resources you have available to make cell
@@ -752,7 +752,7 @@ seurat_celltype_l2 assignments and/or you can plot it like this:</p>
 <span>                     fill <span class="op">=</span> <span class="va">seurat_celltype_l1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>position<span class="op">=</span><span class="st">"fill"</span>, stat<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-30-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <p>Then we add a new cell metadata column by recoding the leiden column
 into our designated assignments:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
@@ -763,7 +763,7 @@ into our designated assignments:</p>
 <span>                                                  <span class="st">"3"</span> <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_var_umap.html">bb_var_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, var <span class="op">=</span> <span class="st">"leiden_assignment"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-32-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="umap-plot-types">UMAP Plot Types<a class="anchor" aria-label="anchor" href="#umap-plot-types"></a>
@@ -778,7 +778,7 @@ a specific value.</p>
 <span>            value_to_highlight <span class="op">=</span> <span class="st">"T/NK"</span>, </span>
 <span>            cell_size <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>            foreground_alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-33-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-33-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <p>This function returns a ggplot so if you don’t like the colors you
 just have to add on a different scale. Color palettes can also be set
 internally in the function.</p>
@@ -789,7 +789,7 @@ internally in the function.</p>
 <span>            palette <span class="op">=</span> <span class="st">"green4"</span>, </span>
 <span>            cell_size <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>            foreground_alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-34-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-34-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <p>An important concept for the overall analysis is understanding the
 distribution of cell states between experimental conditions. We use a
 density function to calculate the local density of cells in UMAP space
@@ -800,7 +800,7 @@ after faceting the plot by our experimental variable.</p>
 <span>            facet_by <span class="op">=</span> <span class="st">"equipment"</span>, </span>
 <span>            cell_size <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>            plot_title <span class="op">=</span> <span class="st">"Local Cell Density"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-35-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>As you can see, these are basically the same, which is what you would
 expect.</p>
 <p>Density is by definition normalized to the number of cells in the
@@ -817,7 +817,7 @@ of cells recovered.</p>
 <span>            facet_by <span class="op">=</span> <span class="st">"equipment"</span>, </span>
 <span>            cell_size <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>            plot_title <span class="op">=</span> <span class="st">"Local N in 10 Bins"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-36-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/bb_var_umap.html">bb_var_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, </span>
@@ -827,7 +827,7 @@ of cells recovered.</p>
 <span>            facet_by <span class="op">=</span> <span class="st">"equipment"</span>, </span>
 <span>            cell_size <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>            plot_title <span class="op">=</span> <span class="st">"Log Local N in 10 Bins"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-36-2.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>As in this case, usually Density looks better.</p>
 <p>Since the concept of distribution between cell states is so
 important, we have a dedicated function for plotting this.</p>
@@ -838,7 +838,7 @@ important, we have a dedicated function for plotting this.</p>
 <span>                          experimental_class <span class="op">=</span> <span class="st">"X"</span>, </span>
 <span>                          control_class <span class="op">=</span> <span class="st">"chromium"</span>, </span>
 <span>                          return_value <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-37-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-37-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <p>This function tells you which class of sample is enriched in each
 cluster. The values are normalized according to the number of total
 cells captured for that class and presented as log fold change relative
@@ -879,7 +879,7 @@ expression in UMAP plots.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_gene_umap.html">bb_gene_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, </span>
 <span>             gene_or_genes <span class="op">=</span> <span class="st">"CD3D"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-39-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-39-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <p>Now a word of caution/advice. I find that these plots are most useful
 for exploratory analysis and possibly supplemental figures but often not
 main figures. The reason is that they convey less information per unit
@@ -898,7 +898,7 @@ it should be used with caution.</p>
 (e.g. modules) using this function:</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_gene_umap.html">bb_gene_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>, gene_or_genes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CD19"</span>, <span class="st">"CD3D"</span>, <span class="st">"CD14"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-40-1.png" width="720" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-40-1.png" class="r-plt" alt="" width="720" style="display: block; margin: auto;"></p>
 <p>Note that for plotting aggregate genes, the parameter gene_or_genes
 should be provided with a data frame of two columns with the first
 column being ensembl cell id and the second being the gene grouping.</p>
@@ -911,7 +911,7 @@ column being ensembl cell id and the second being the gene grouping.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/bb_gene_umap.html">bb_gene_umap</a></span><span class="op">(</span><span class="va">vignette_cds</span>,</span>
 <span>             gene_or_genes <span class="op">=</span> <span class="va">agg_genes</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-41-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-41-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="gene-dotplots">Gene Dotplots<a class="anchor" aria-label="anchor" href="#gene-dotplots"></a>
@@ -923,7 +923,7 @@ reader because of overplotting.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_genebubbles.html">bb_genebubbles</a></span><span class="op">(</span><span class="va">vignette_cds</span>,</span>
 <span>               genes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CD3E"</span>, <span class="st">"CD14"</span>, <span class="st">"CD19"</span><span class="op">)</span>, </span>
 <span>               cell_grouping <span class="op">=</span> <span class="st">"leiden_assignment"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-42-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-42-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <p>If run with default settings, this will order the genes and cell
 groups using a biclustering algorithm. This is not apparent on the plot
 above because of the small number of groups and genes. But you can also
@@ -934,14 +934,14 @@ specify the order:</p>
 <span>                cell_grouping <span class="op">=</span> <span class="st">"leiden_assignment"</span>, </span>
 <span>                gene_ordering <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"as_supplied"</span><span class="op">)</span>,</span>
 <span>                group_ordering <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"as_supplied"</span><span class="op">)</span><span class="op">)</span><span class="co">#will be alphabetical or by factor level</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-43-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-43-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <p>You can generate composite variables like so:</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bb_genebubbles.html">bb_genebubbles</a></span><span class="op">(</span><span class="va">vignette_cds</span>, </span>
 <span>                genes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CD3E"</span>, <span class="st">"CD14"</span>, <span class="st">"CD19"</span><span class="op">)</span>, </span>
 <span>                cell_grouping <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"leiden_assignment"</span>, <span class="st">"louvain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">1</span>, vjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="scRNAseq_files/figure-html/unnamed-chunk-44-1.png" width="720" style="display: block; margin: auto;"></p>
+<p><img src="scRNAseq_files/figure-html/unnamed-chunk-44-1.png" class="r-plt" alt="" width="720" style="display: block; margin: auto;"></p>
 <p>For more complicated figures, you can return a tibble and make the
 plot on your own:</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
@@ -1209,7 +1209,7 @@ enhancements or post in github if you are so inclined.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

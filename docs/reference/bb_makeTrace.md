@@ -1,0 +1,103 @@
+# Construct a Trace object from a Signac Object or Granges object
+
+Problem 1: Signac objects and GRanges made from bigwigs are large and it
+is computationally expensive to get data from them when tweaking plots.
+Problem 2: For the most part we like how Signac plots genomic coverage
+of track-like data and we would like to show bulk data in a similar way
+with a similar compuatational interface. The trace object is a small
+intermediate object that holds the minimal amount of data you need to
+make a coverage plot showing accessibility or binding to a specific
+genomic region. Then you can use the trace object to quickly and easily
+generate tracks as needed for your plot. These tracks are all ggplots
+and are easy to configure for legible graphics using add-on layers.
+There are options for displaying groups by color or facet which are
+built in with good graphical defaults. If these are not suitable, they
+can be changed post hoc like any other ggplot.
+
+## Usage
+
+``` r
+bb_makeTrace(
+  obj,
+  gene_to_plot,
+  genome = c("hg38", "danRer11"),
+  extend_left = 0,
+  extend_right = 0,
+  peaks = NULL,
+  bulk_group_col = "group",
+  bulk_coverage_col = "coverage",
+  fill_in = FALSE,
+  fixed_width = 100
+)
+```
+
+## Arguments
+
+- obj:
+
+  A Signac/Seurat object or a GRanges object. Import a bigwig file to a
+  GRanges object using bb_import_bw to ensure proper formatting. Use
+  plyranges functions to easily pre-filter the GRanges object e.g. by
+  chr to reduce processing time. The precise range will be defined by
+  gene_to_plot and the extend arguments. You may wish to add grouping
+  metadata columns and to merge several bulk tracks. This can be done
+  while importing using c(bw1, bw2).
+
+- gene_to_plot:
+
+  The gene you want to display. Must be a valid gene in the genome
+  assembly being used.
+
+- genome:
+
+  The genome assembly. Required. Must be either "hg38" or "danRer11".
+
+- extend_left:
+
+  Bases to extend plot_range left, or upstream relative to the top
+  strand.
+
+- extend_right:
+
+  Bases to extend plot_range right, or downstream relative to the top
+  strand.
+
+- peaks:
+
+  An optional GRanges object holding peak data. Ignored for
+  Signac/Seurat objects which carry this internally.
+
+- bulk_group_col:
+
+  Used only when making a Trace from a GRanges object. This identifies
+  the metadata column holding the grouping information for the Trace
+  data. It will be converted literally to "group" when the object is
+  made. Recommendation is to import the bigwigs using import_bw which
+  will set the group column and name it appropriately and then this can
+  be left as the default. This is ignored for Signac/Seurat objects
+  which report this by default in a column named group.
+
+- bulk_coverage_col:
+
+  If you are making the object from a bigwig/GRanges, you need to
+  identify which column in your bigwig/GRanges object holds the coverage
+  data to plot on the y axis. Defaults to "coverage". Similar to
+  bulk_group_col, if you import the bigwig using bb_import_bw, it should
+  already be named appropriately. Will be ignored for Signac/Seurat
+  objects which use "coverage" by default.
+
+- fill_in:
+
+  Some track data may be very sparse. This probably depends on how it
+  was generated. It seems that nextflow bigwigs have missing data where
+  there is no signal but data from Signac is more complete with zeros.
+  The problem with missing data is that it makes the line plot look
+  jagged. This option allows you to fill in gaps in the trace data with
+  0's. This is done by tiling the regions without real signal, leaving
+  the ranges with real signal untouched. Default is FALSE for
+  compatibility with older code. TRUE will fill in the gaps.
+
+- fixed_width:
+
+  Bin width for filling in gaps in sparse genome track data. Defaults to
+  100 bp.

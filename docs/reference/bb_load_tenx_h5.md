@@ -1,0 +1,31 @@
+# Load a 10X Genomics H5 File and Return a CDS
+
+This function reads a 10X Genomics H5 file and returns a cell_data_set
+or CDS. Important notes: This is tested and should work for all
+single-genome and citeseq data sets. For multigenome data, as long as
+the features are all contained in the same matrix and identified by a
+composite reference/gene identifier, it should also work. In this case,
+the CDS will have to be filtered post-hoc using the sample_barcodes.csv
+data to get the appropriate species of cell. Also: this function takes
+in a specific H5 file from a unique biological sample. So it should be
+wrapped in another function to map across all the samples in a dataset.
+The wrapper needs to find the appropriate H5 file, e.g.
+filtered_feature_bc_matrix.h5 for files processed with cellranger count
+or sample_filtered_feature_bc_matrix.h5 for files processed using
+cellranger multi. This may change based on the cellranger version used.
+
+## Usage
+
+``` r
+bb_load_tenx_h5(filename, sample_metadata_tbl = NULL)
+```
+
+## Arguments
+
+- filename:
+
+  Path to the h5 file.
+
+## Value
+
+A cell data set.

@@ -1,4 +1,5 @@
 devtools::load_all()
+bb_make_ape_genomic("CXCL1", genome = "hg38")
 vignette_cds
 
 bb_gene_umap(vignette_cds, "CD3E")
@@ -12,4 +13,6 @@ res <- bb_pseudobulk_mf(vignette_cds, pseudosample_table = pseudosamples, design
 
 res$Result |> arrange(padj)
 
-
+blaseRtools::project_data("/network/X/Labs/Blaser/share/resources/datapkg/ficla_aml/")
+library(blaseRtools)
+save_monocle_disk(vignette_cds, data_directory = fs::path_temp(), extdata_directory = fs::path_temp())

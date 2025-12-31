@@ -1,0 +1,210 @@
+# A function to generate a UMAP with colors mapped to colData variables
+
+A function to generate a UMAP with colors mapped to colData variables
+
+## Usage
+
+``` r
+bb_var_umap(
+  obj,
+  var,
+  assay = "RNA",
+  value_to_highlight = NULL,
+  foreground_alpha = 1,
+  legend_pos = "right",
+  cell_size = 0.5,
+  alt_stroke_color = NULL,
+  legend_title = NULL,
+  plot_title = NULL,
+  palette = NULL,
+  alt_dim_x = NULL,
+  alt_dim_y = NULL,
+  overwrite_labels = FALSE,
+  group_label_size = 3,
+  alt_label_col = NULL,
+  shape = 21,
+  nbin = 100,
+  facet_by = NULL,
+  sample_equally = FALSE,
+  rasterize = FALSE,
+  raster_dpi = 300,
+  show_trajectory_graph = FALSE,
+  trajectory_graph_color = "grey28",
+  trajectory_graph_segment_size = 0.75,
+  label_root_node = FALSE,
+  pseudotime_dim = var,
+  label_principal_points = FALSE,
+  graph_label_size = 2,
+  cds = NULL,
+  outline_cluster = FALSE,
+  outline_color = "black",
+  outline_size = 1,
+  outline_type = "solid",
+  outline_alpha = 1,
+  ...,
+  man_text_df = NULL,
+  text_geom = "text",
+  minimum_segment_length = 1,
+  hexify = FALSE,
+  n_hexbins = 100
+)
+```
+
+## Arguments
+
+- obj:
+
+  A Seurat or cell data set object
+
+- var:
+
+  The variable to map colors to. Special exceptions are "density",
+  "local_n" and "log_local_n" which calculate the 2 d kernel density
+  estimate or binned cell counts and maps to color scale.
+
+- assay:
+
+  The gene expression assay to draw reduced dimensions from. Default is
+  "RNA". Does not do anything with cell_data_set objects.
+
+- value_to_highlight:
+
+  Option to highlight a single value
+
+- foreground_alpha:
+
+  Alpha value for foreground points
+
+- legend_pos:
+
+  Legend position
+
+- cell_size:
+
+  Cell point size
+
+- alt_stroke_color:
+
+  Alternative color for the data point stroke
+
+- legend_title:
+
+  Title for the legend
+
+- plot_title:
+
+  Main title for the plot
+
+- palette:
+
+  Color palette to use. "Rcolorbrewer", "Viridis" are builtin options.
+  Otherwise provide manual values.
+
+- alt_dim_x:
+
+  Alternate/reference dimensions to plot by.
+
+- alt_dim_y:
+
+  Alternate/reference dimensions to plot by.
+
+- overwrite_labels:
+
+  Whether to overwrite the variable value labels
+
+- group_label_size:
+
+  Size of the overwritten labels
+
+- alt_label_col:
+
+  Alternate column to label cells by
+
+- shape:
+
+  Shape for data points
+
+- nbin:
+
+  Number of bins if using var %in% c("density". "local_n",
+  "log_local_n")
+
+- facet_by:
+
+  Variable or variables to facet by.
+
+- sample_equally:
+
+  Whether or not you should downsample to the same number of cells in
+  each plot. Default is FALSE or no.
+
+- rasterize:
+
+  Whether to render the graphical layer as a raster image. Default is
+  FALSE.
+
+- raster_dpi:
+
+  If rasterize then this is the DPI used. Default = 300.
+
+- show_trajectory_graph:
+
+  Whether to render the principal graph for the trajectory. Requires
+  that learn_graph() has been called on cds.
+
+- trajectory_graph_color:
+
+  The color to be used for plotting the trajectory graph.
+
+- trajectory_graph_segment_size:
+
+  The size of the line segments used for plotting the trajectory graph.
+
+- label_root_node:
+
+  Logical; whether to label the root node for the selected pseudotime
+  trajectory. The function will requires that a valid pseudotime column
+  be identified, usually as the value of the "var" argument in the form
+  of "pseudotime_cluster_value". If you wish to use var to color the
+  cells in some other way, the pseudotime_dim argument needs to be
+  supplied with the correct pseudotime dimension to pick the root node
+  from.
+
+- pseudotime_dim:
+
+  An alternative column to pick the pseudoetime root node from, if not
+  supplied to var.
+
+- label_principal_points:
+
+  Logical indicating whether to label roots, leaves, and branch points
+  with principal point names. This is useful for order_cells and
+  choose_graph_segments in non-interactive mode.
+
+- graph_label_size:
+
+  How large to make the branch, root, and leaf labels.
+
+- cds:
+
+  Provided for backward compatibility with prior versions. If a value is
+  supplied, a warning will be emitted and the value will be transferred
+  to the obj argument, Default: NULL
+
+- ...:
+
+  Additional params for facetting.
+
+- man_text_df:
+
+  A data frame in the form of text_x = numeric_vector, text_y =
+  numeric_vector, label = character_vector for manually placing text
+  labels.
+
+- minimum_segment_length:
+
+  Minimum length of a line to draw from label to centroid.
+
+## Value
+
+a ggplot

@@ -1,0 +1,81 @@
+# Make an Ape Genome Object
+
+This function takes either a gene name or sequence coordinates and
+returns an ape object with DNA sequence from the the selected genome
+reference. You can choose from hg38 and GRCz11. Features are generated
+from ensembl GFF files. Features overlapping the query range (gene or
+sequence) are returned as a GRanges object and as features within the
+Ape object. The features included can optionally be filtered using the
+"include_type" argument to the function. Using the "additional_granges"
+argument, you can provide additional features not present in the
+standard gene model which will be added to the Ape object GRanges slot
+and to the features slot.
+
+## Usage
+
+``` r
+bb_make_ape_genomic(
+  query,
+  genome = c("hg38", "GRCz11"),
+  extend_left = 0,
+  extend_right = 0,
+  include_type = c("ncRNA_gene", "rRNA", "exon", "pseudogene", "pseudogenic_transcript",
+    "ncRNA", "gene", "CDS", "lnc_RNA", "mRNA", "three_prime_UTR", "five_prime_UTR",
+    "unconfirmed_transcript", "scRNA", "C_gene_segment", "D_gene_segment",
+    "J_gene_segment", "V_gene_segment", "miRNA", "tRNA", "snRNA", "snoRNA",
+    "lincRNA_gene", "lncRNA_gene", "unconfirmed_transcript"),
+  additional_granges = NULL
+)
+```
+
+## Arguments
+
+- query:
+
+  Either a valid gene name or a named numeric vector of genome
+  coordinates. This vector should be of the form: c(chr = 1, start =
+  1000, end = 2000). The vector must be numeric an must have those
+  names. The chromosome number will be converted to "chr1" etc
+  internally.
+
+- genome:
+
+  The genome to pull from, Default: c("hg38", "GRCz11")
+
+- extend_left:
+
+  Number of bases to extend the query to the left or "upstream" relative
+  to the + strand.
+
+- extend_right:
+
+  Number of bases to extend the query to the right or "downstream"
+  relative to the + strand.
+
+- include_type:
+
+  The type of features to include from the standard gene model. Default:
+  c("ncRNA_gene", "rRNA", "exon", "pseudogene",
+  "pseudogenic_transcript", "ncRNA", "gene", "CDS", "lnc_RNA", "mRNA",
+  "three_prime_UTR", "five_prime_UTR", "unconfirmed_transcript",
+  "scRNA", "C_gene_segment", "D_gene_segment", "J_gene_segment",
+  "V_gene_segment", "miRNA", "tRNA", "snRNA", "snoRNA", "lincRNA_gene",
+  "lncRNA_gene", "unconfirmed_transcript")
+
+- additional_granges:
+
+  A GRanges object with features to add to the Ape Object. Coordinates
+  should all be relative to the reference, *NOT* the sequence extracted
+  for the ape file. The Granges object can be constructed with the
+  following syntax:
+  GenomicRanges::makeGRangesFromDataFrame(data.frame(seqname = "chr6",
+  start = 40523370, end = 40523380, strand = "+", type = "addl_feature",
+  gene_name = "prkcda", label = "feature1"), keep.extra.columns = T).
+  The gene_name argument here is optional. If you have defined features
+  based on the extracted sequence, (i.e. relative to position 1 in the
+  ORIGIN section of the Ape object), the best option is to use the
+  feature setting function FEATURES(instance_of_Ape) \<- GRanges_Object.
+
+## Value
+
+An APE object
