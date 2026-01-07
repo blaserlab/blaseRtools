@@ -85,7 +85,7 @@ project_data <- function(path, deconflict_string = "") {
               "{.emph {datapackage_stem}}, version {.emph {requested_version}} was found in the cache."
             )
             cli::cli_alert_warning("Newer versions may be available.")
-            install_one_package(
+            blaseRtemplates::install_one_package(
               package = datapackage_stem,
               how = "link_from_cache",
               which_version = requested_version
@@ -97,8 +97,8 @@ project_data <- function(path, deconflict_string = "") {
             )
           } else {
             cli::cli_alert_warning("Installing {path}.  There may be newer versions available.")
-            install_one_package(package = path)
-            hash_n_cache()
+            blaseRtemplates::install_one_package(package = path)
+            blaseRtemplates::hash_n_cache()
             deconflict_datapkg(
               package = datapackage_stem,
               deconflict = ds,
@@ -155,7 +155,7 @@ project_data <- function(path, deconflict_string = "") {
           } else {
             # check to see if cache is up to date and install from there if so
             if (cache_up_to_date) {
-              install_one_package(datapackage_stem, "link_from_cache")
+              blaseRtemplates::install_one_package(datapackage_stem, "link_from_cache")
               deconflict_datapkg(
                 package = datapackage_stem,
                 deconflict = ds,
@@ -226,11 +226,11 @@ project_data <- function(path, deconflict_string = "") {
   install_datapackage_2 <-
     function(path, latest_version) {
       if (stringr::str_sub(path, -1) == "/") {
-        install_one_package(paste0(path, latest_version))
-        hash_n_cache()
+        blaseRtemplates::install_one_package(paste0(path, latest_version))
+        blaseRtemplates::hash_n_cache()
       } else {
-        install_one_package(paste0(path, "/", latest_version))
-        hash_n_cache()
+        blaseRtemplates::install_one_package(paste0(path, "/", latest_version))
+        blaseRtemplates::hash_n_cache()
       }
 
     }

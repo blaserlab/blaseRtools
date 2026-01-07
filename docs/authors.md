@@ -10,13 +10,13 @@
 Source:
 [`DESCRIPTION`](https://github.com/blaserlab/blaseRtools/blob/HEAD/DESCRIPTION)
 
-Blaser B (2025). *blaseRtools: R Tools for Blaser Lab Data Analysis*. R
-package version 0.0.0.9199, <https://github.com/blaserlab/blaseRtools>.
+Blaser B (2026). *blaseRtools: R Tools for Blaser Lab Data Analysis*. R
+package version 0.0.0.9200, <https://github.com/blaserlab/blaseRtools>.
 
     @Manual{,
       title = {blaseRtools: R Tools for Blaser Lab Data Analysis},
       author = {Brad Blaser},
-      year = {2025},
-      note = {R package version 0.0.0.9199},
+      year = {2026},
+      note = {R package version 0.0.0.9200},
       url = {https://github.com/blaserlab/blaseRtools},
     }

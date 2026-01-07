@@ -694,7 +694,7 @@ R_version	name	version	date_time	hash	binary_location	status
 4.5.2	bitops	1.0.9	2025-06-03T16:16:29Z	59e1d4b8b16a619a5473348548ac7c56	/workspace/rst/cache_4_5/library/bitops/1.0-9/59e1d4b8b16a619a5473348548ac7c56/bitops	available
 4.5.2	blaseRdata	0.0.0.9013	2025-06-04T14:13:12Z	4281ff4f0b7d7809a03fb4be444733c8	/workspace/rst/cache_4_5/library/blaseRdata/0.0.0.9013/4281ff4f0b7d7809a03fb4be444733c8/blaseRdata	active
 4.5.2	blaseRextras	0.0.0.9008	2025-06-04T15:09:59Z	a19105f2f8bc4944d96f76cf7864f55f	/workspace/rst/cache_4_5/library/blaseRextras/0.0.0.9008/a19105f2f8bc4944d96f76cf7864f55f/blaseRextras	available
-4.5.2	blaseRtools	0.0.0.9198	2025-12-24T15:06:08Z	81237b2cad66cb2ed10a33ff5e81564f	/workspace/rst/cache_4_5/library/blaseRtools/0.0.0.9198/81237b2cad66cb2ed10a33ff5e81564f/blaseRtools	active
+4.5.2	blaseRtools	0.0.0.9199	2025-12-31T17:21:52Z	09c69ea638eae4a322d74972390cc69d	/workspace/rst/cache_4_5/library/blaseRtools/0.0.0.9199/09c69ea638eae4a322d74972390cc69d/blaseRtools	active
 4.5.2	blaser.park.datapkg	0.0.0.9002	2025-06-04T23:46:58Z	295f324efebcd1e58af3eda64cab9ecc	/workspace/rst/cache_4_5/library/blaser.park.datapkg/0.0.0.9002/295f324efebcd1e58af3eda64cab9ecc/blaser.park.datapkg	available
 4.5.2	blavaan	0.5.8	2025-06-04T00:43:02Z	242ce83a71f10a8ebd34c2054f166375	/workspace/rst/cache_4_5/library/blavaan/0.5-8/242ce83a71f10a8ebd34c2054f166375/blavaan	available
 4.5.2	blme	1.0.6	2025-06-04T00:43:15Z	7de755b9890480e6b80f98510723133a	/workspace/rst/cache_4_5/library/blme/1.0-6/7de755b9890480e6b80f98510723133a/blme	available
@@ -856,7 +856,7 @@ R_version	name	version	date_time	hash	binary_location	status
 4.5.2	cyclocomp	1.1.1	2025-06-04T01:09:45Z	981034ae907ac09855247a302fc93d97	/workspace/rst/cache_4_5/library/cyclocomp/1.1.1/981034ae907ac09855247a302fc93d97/cyclocomp	available
 4.5.2	cytolib	2.20.0	2025-06-03T18:11:40Z	32b5af81cc917c68e95e370ced9b7186	/workspace/rst/cache_4_5/library/cytolib/2.20.0/32b5af81cc917c68e95e370ced9b7186/cytolib	available
 4.5.2	dagitty	0.3.4	2025-06-04T01:09:55Z	1451851cc460cb5afbd7992286babca8	/workspace/rst/cache_4_5/library/dagitty/0.3-4/1451851cc460cb5afbd7992286babca8/dagitty	available
-4.5.2	data.table	1.17.8	2025-12-24T15:06:12Z	5b232c301d76f5a21691e68a2b668b34	/workspace/rst/cache_4_5/library/data.table/1.17.8/5b232c301d76f5a21691e68a2b668b34/data.table	available
+4.5.2	data.table	1.18.0	2025-12-26T06:55:31Z	228838f585d067e203d4b02bcc32223f	/workspace/rst/cache_4_5/library/data.table/1.18.0/228838f585d067e203d4b02bcc32223f/data.table	available
 4.5.2	data.tree	1.1.0	2025-06-04T01:10:08Z	f018ddbaaee09aafc85c43daaa72ada8	/workspace/rst/cache_4_5/library/data.tree/1.1.0/f018ddbaaee09aafc85c43daaa72ada8/data.tree	available
 4.5.2	datasets	4.5.0	2025-06-03T15:43:53Z	e15b2e414b68f997c237ebf1ec58f20a	/workspace/rst/cache_4_5/library/datasets/4.5.0/e15b2e414b68f997c237ebf1ec58f20a/datasets	base
 4.5.2	datawizard	1.1.0	2025-06-04T00:35:13Z	ec8341a931b00d69ce56c967281c2813	/workspace/rst/cache_4_5/library/datawizard/1.1.0/ec8341a931b00d69ce56c967281c2813/datawizard	available
@@ -941,7 +941,7 @@ R_version	name	version	date_time	hash	binary_location	status
 4.5.2	easystats	0.7.4	2025-06-04T01:22:48Z	c7a7523822b838130c05c0d738ae245f	/workspace/rst/cache_4_5/library/easystats/0.7.4/c7a7523822b838130c05c0d738ae245f/easystats	available
 4.5.2	ebal	0.1.8	2025-06-04T01:23:02Z	2cf3ee8e8f0a483f0ae9cb96e07a3e5f	/workspace/rst/cache_4_5/library/ebal/0.1-8/2cf3ee8e8f0a483f0ae9cb96e07a3e5f/ebal	available
 4.5.2	ecp	3.1.6	2025-06-04T01:12:10Z	47d715a78b5a140df448d51951c7a8b8	/workspace/rst/cache_4_5/library/ecp/3.1.6/47d715a78b5a140df448d51951c7a8b8/ecp	available
-4.5.2	edgeR	4.8.1	2025-12-24T15:06:14Z	372e6a9beac3f680921ca7257018ae27	/workspace/rst/cache_4_5/library/edgeR/4.8.1/372e6a9beac3f680921ca7257018ae27/edgeR	active
+4.5.2	edgeR	4.8.2	2025-12-31T17:21:53Z	6c79a6255fe186cc337790a2dc5bb22e	/workspace/rst/cache_4_5/library/edgeR/4.8.2/6c79a6255fe186cc337790a2dc5bb22e/edgeR	active
 4.5.2	eds	1.10.0	2025-06-04T01:23:25Z	847d583c533218b13de762c7ea5b3dfe	/workspace/rst/cache_4_5/library/eds/1.10.0/847d583c533218b13de762c7ea5b3dfe/eds	available
 4.5.2	effects	4.2.2	2025-06-03T22:20:09Z	b40af8290ddfd17ad94b8899e2e2d07f	/workspace/rst/cache_4_5/library/effects/4.2-2/b40af8290ddfd17ad94b8899e2e2d07f/effects	available
 4.5.2	effectsize	1.0.1	2025-06-04T01:22:49Z	2a8da3c85fe595a18eb2f96c767f65a9	/workspace/rst/cache_4_5/library/effectsize/1.0.1/2a8da3c85fe595a18eb2f96c767f65a9/effectsize	available
@@ -1087,7 +1087,7 @@ R_version	name	version	date_time	hash	binary_location	status
 4.5.2	ftsa	6.6	2025-06-04T01:12:12Z	ad2913c46fc4973edc8977737b43a045	/workspace/rst/cache_4_5/library/ftsa/6.6/ad2913c46fc4973edc8977737b43a045/ftsa	available
 4.5.2	fungible	2.4.4	2025-06-03T19:00:52Z	ac1cac1ee8456368f66a7d9a599e93c4	/workspace/rst/cache_4_5/library/fungible/2.4.4/ac1cac1ee8456368f66a7d9a599e93c4/fungible	available
 4.5.2	furrr	0.3.1	2025-06-03T15:44:00Z	c60002c52d7cc180b0529041f577d76e	/workspace/rst/cache_4_5/library/furrr/0.3.1/c60002c52d7cc180b0529041f577d76e/furrr	available
-4.5.2	futile.logger	1.4.3	2025-06-03T15:44:00Z	18dfbc5b861699f2beabbbe0c7b68170	/workspace/rst/cache_4_5/library/futile.logger/1.4.3/18dfbc5b861699f2beabbbe0c7b68170/futile.logger	available
+4.5.2	futile.logger	1.4.9	2025-12-31T06:57:04Z	90da7721df7e4fcb7ad90fddeecc4105	/workspace/rst/cache_4_5/library/futile.logger/1.4.9/90da7721df7e4fcb7ad90fddeecc4105/futile.logger	available
 4.5.2	futile.options	1.0.1	2025-06-03T15:44:00Z	228350d5084d96ec2f3e57b2ed07b430	/workspace/rst/cache_4_5/library/futile.options/1.0.1/228350d5084d96ec2f3e57b2ed07b430/futile.options	available
 4.5.2	future	1.68.0	2025-12-24T15:06:18Z	42a7fb095a43cff6ceb36f03a76fde2c	/workspace/rst/cache_4_5/library/future/1.68.0/42a7fb095a43cff6ceb36f03a76fde2c/future	active
 4.5.2	future.apply	1.20.1	2025-12-24T15:06:18Z	c8ddebc4fa675002eafe563beec7c6d3	/workspace/rst/cache_4_5/library/future.apply/1.20.1/c8ddebc4fa675002eafe563beec7c6d3/future.apply	available
@@ -1873,7 +1873,7 @@ R_version	name	version	date_time	hash	binary_location	status
 4.5.2	promises	1.5.0	2025-12-24T15:06:41Z	f18ac40a43f6f51f53ef7bfbe179e03e	/workspace/rst/cache_4_5/library/promises/1.5.0/f18ac40a43f6f51f53ef7bfbe179e03e/promises	available
 4.5.2	prompt	1.0.2	2025-06-03T15:44:43Z	eab7112293cb47db054c9e56666160af	/workspace/rst/cache_4_5/library/prompt/1.0.2/eab7112293cb47db054c9e56666160af/prompt	available
 4.5.2	proto	1.0.0	2025-06-03T20:48:15Z	68b72bc1083131107582c3f3ad64c1b8	/workspace/rst/cache_4_5/library/proto/1.0.0/68b72bc1083131107582c3f3ad64c1b8/proto	available
-4.5.2	proxy	0.4.28	2025-12-24T15:06:42Z	a138ae462c2d1a778c311750a118da5f	/workspace/rst/cache_4_5/library/proxy/0.4-28/a138ae462c2d1a778c311750a118da5f/proxy	available
+4.5.2	proxy	0.4.29	2025-12-31T06:57:04Z	acaa41b68451691f2975001c1a02d4a4	/workspace/rst/cache_4_5/library/proxy/0.4-29/acaa41b68451691f2975001c1a02d4a4/proxy	available
 4.5.2	proxyC	0.5.2	2025-06-04T04:42:42Z	9cad289cf92de750b4e2fb45d1560635	/workspace/rst/cache_4_5/library/proxyC/0.5.2/9cad289cf92de750b4e2fb45d1560635/proxyC	available
 4.5.2	pryr	0.1.6	2025-06-04T04:42:59Z	43c7df9d37d66e90f6d9c05bf3539998	/workspace/rst/cache_4_5/library/pryr/0.1.6/43c7df9d37d66e90f6d9c05bf3539998/pryr	available
 4.5.2	ps	1.9.1	2025-06-03T15:44:44Z	cece5a198d39a9e1f62234516d3c0f1b	/workspace/rst/cache_4_5/library/ps/1.9.1/cece5a198d39a9e1f62234516d3c0f1b/ps	available
@@ -2052,7 +2052,7 @@ R_version	name	version	date_time	hash	binary_location	status
 4.5.2	rtdists	0.11.5	2025-06-04T05:15:14Z	b6c59d6d8b21c4021dde3ca9e1e8ea24	/workspace/rst/cache_4_5/library/rtdists/0.11-5/b6c59d6d8b21c4021dde3ca9e1e8ea24/rtdists	available
 4.5.2	rtf	0.4.14.1	2025-06-04T04:43:20Z	120efb27f3b4b0db199bffe274a09493	/workspace/rst/cache_4_5/library/rtf/0.4-14.1/120efb27f3b4b0db199bffe274a09493/rtf	available
 4.5.2	rticles	0.27	2025-06-04T05:15:36Z	cef338ae845d413f87d8bccae50954c9	/workspace/rst/cache_4_5/library/rticles/0.27/cef338ae845d413f87d8bccae50954c9/rticles	available
-4.5.2	rtracklayer	1.70.0	2025-12-24T15:06:48Z	bccc331e917cd706dc1cce84f405138a	/workspace/rst/cache_4_5/library/rtracklayer/1.70.0/bccc331e917cd706dc1cce84f405138a/rtracklayer	active
+4.5.2	rtracklayer	1.70.1	2025-12-31T17:21:53Z	df36c778e28925a94fe289cb8c2c872a	/workspace/rst/cache_4_5/library/rtracklayer/1.70.1/df36c778e28925a94fe289cb8c2c872a/rtracklayer	active
 4.5.2	rucrdtw	0.1.6	2025-06-04T05:15:54Z	0f1c3fb08a1ab79e1335cd6cfa2ff9a8	/workspace/rst/cache_4_5/library/rucrdtw/0.1.6/0f1c3fb08a1ab79e1335cd6cfa2ff9a8/rucrdtw	available
 4.5.2	rugarch	1.5.3	2025-06-04T05:16:14Z	8a4e95f7b8b0f2694b928fb7b980c543	/workspace/rst/cache_4_5/library/rugarch/1.5-3/8a4e95f7b8b0f2694b928fb7b980c543/rugarch	available
 4.5.2	rules	1.0.2	2025-06-04T05:16:35Z	e47ca273fa192c5eb2d8f989f41b4dff	/workspace/rst/cache_4_5/library/rules/1.0.2/e47ca273fa192c5eb2d8f989f41b4dff/rules	available
