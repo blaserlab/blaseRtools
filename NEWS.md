@@ -465,7 +465,11 @@
 * removed dependency on plyranges::filter which was removed upstream
 * used ChatGPT to clean up trace_funcs.R; prelim testing seems ok.
 
-# blaseRtools 0.0.0.9198-200
+# blaseRtools 0.0.0.9198-2002
 
 * removed grr dependency from Matrix.utils, potentially affecting bb_gene_umap and bb_pseudobulk_mf.  Testing seems ok.
 * moved in project_data from blaseRtemplates
+
+# blaseRtools 0.0.0.9203
+
+* modified bb_make_trace to facilitate visualization of small ranges without centering on a gene.

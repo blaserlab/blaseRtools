@@ -6,7 +6,7 @@
 \usage{
 bb_makeTrace(
   obj,
-  gene_to_plot,
+  gene_to_plot = NULL,
   genome = c("hg38", "danRer11"),
   extend_left = 0,
   extend_right = 0,
@@ -18,9 +18,9 @@ bb_makeTrace(
 )
 }
 \arguments{
-\item{obj}{A Signac/Seurat object or a GRanges object.  Import a bigwig file to a GRanges object using bb_import_bw to ensure proper formatting.  Use plyranges functions to easily pre-filter the GRanges object e.g. by chr to reduce processing time.  The precise range will be defined by gene_to_plot and the extend arguments.  You may wish to add grouping metadata columns and to merge several bulk tracks.  This can be done while importing using c(bw1, bw2).}
+\item{obj}{A Signac/Seurat object or a GRanges object.  Import a bigwig file to a GRanges object using bb_import_bw to ensure proper formatting.   The precise range can optionally be defined by gene_to_plot and the extend arguments.  You may wish to add grouping metadata columns and to merge several bulk tracks.  This can be done while importing using c(bw1, bw2).  If you are importing a small bigwig or related object, you can skip the gene_to_plot argument.  The boundaries of the trace object will be defined by the data you import.}
 
-\item{gene_to_plot}{The gene you want to display.  Must be a valid gene in the genome assembly being used.}
+\item{gene_to_plot}{The gene you want to center the trace object on.  Must be a valid gene in the genome assembly being used.  Optional.  If omitted, the full range of the imported object will be used as the boundaries of the trace object.}
 
 \item{genome}{The genome assembly.  Required.  Must be either "hg38" or "danRer11".}
 

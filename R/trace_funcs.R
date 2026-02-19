@@ -224,8 +224,8 @@ setValidity("Trace", function(object) {
 #'
 #' @description Problem 1:  Signac objects and GRanges made from bigwigs are large and it is computationally expensive to get data from them when tweaking plots.  Problem 2:  For the most part we like how Signac plots genomic coverage of track-like data and we would like to show bulk data in a similar way with a similar compuatational interface.  The trace object is a small intermediate object that holds the minimal amount of data you need to make a coverage plot showing accessibility or binding to a specific genomic region.  Then you can use the trace object to quickly and easily generate tracks as needed for your plot.  These tracks are all ggplots and are easy to configure for legible graphics using add-on layers.  There are options for displaying groups by color or facet which are built in with good graphical defaults.  If these are not suitable, they can be changed post hoc like any other ggplot.
 #'
-#' @param obj A Signac/Seurat object or a GRanges object.  Import a bigwig file to a GRanges object using bb_import_bw to ensure proper formatting.  Use plyranges functions to easily pre-filter the GRanges object e.g. by chr to reduce processing time.  The precise range will be defined by gene_to_plot and the extend arguments.  You may wish to add grouping metadata columns and to merge several bulk tracks.  This can be done while importing using c(bw1, bw2).
-#' @param gene_to_plot The gene you want to display.  Must be a valid gene in the genome assembly being used.
+#' @param obj A Signac/Seurat object or a GRanges object.  Import a bigwig file to a GRanges object using bb_import_bw to ensure proper formatting.   The precise range can optionally be defined by gene_to_plot and the extend arguments.  You may wish to add grouping metadata columns and to merge several bulk tracks.  This can be done while importing using c(bw1, bw2).  If you are importing a small bigwig or related object, you can skip the gene_to_plot argument.  The boundaries of the trace object will be defined by the data you import.
+#' @param gene_to_plot The gene you want to center the trace object on.  Must be a valid gene in the genome assembly being used.  Optional.  If omitted, the full range of the imported object will be used as the boundaries of the trace object.
 #' @param genome The genome assembly.  Required.  Must be either "hg38" or "danRer11".
 #' @param extend_left Bases to extend plot_range left, or upstream relative to the top strand.
 #' @param extend_right Bases to extend plot_range right, or downstream relative to the top strand.
@@ -239,7 +239,7 @@ setValidity("Trace", function(object) {
 #' @importFrom purrr map
 #' @export
 bb_makeTrace <- function(obj,
-                         gene_to_plot,
+                         gene_to_plot = NULL,
                          genome = c("hg38", "danRer11"),
                          extend_left = 0,
                          extend_right = 0,
@@ -257,18 +257,23 @@ bb_makeTrace <- function(obj,
     full_gene_model <- zfin_granges_reduced
   }
 
-  # Restrict availability to the selected genome
+  # optionally Restrict availability to the selected genome
   available_genes <- unique(mcols(full_gene_model)$gene_name)
 
-  if (gene_to_plot %in% available_genes) {
-    selected_range <- full_gene_model[mcols(full_gene_model)$gene_name %in% gene_to_plot]
-    if (length(selected_range) == 0) {
-      cli::cli_abort("Gene `{gene_to_plot}` is not available in the selected genome.")
+  if (!is.null(gene_to_plot)) {
+    if (gene_to_plot %in% available_genes) {
+      selected_range <- full_gene_model[mcols(full_gene_model)$gene_name %in% gene_to_plot]
+      if (length(selected_range) == 0) {
+        cli::cli_abort("Gene `{gene_to_plot}` is not available in the selected genome.")
+      }
+      plot_range <- range(selected_range)
+    } else {
+      cli::cli_abort("This gene is not available")
     }
-    plot_range <- range(selected_range)
   } else {
-    cli::cli_abort("This gene is not available")
+    plot_range <- range(obj)
   }
+
   start(plot_range) <- start(plot_range) - extend_left
   end(plot_range) <- end(plot_range) + extend_right
   plot_range <- buff_granges(plot_range, gen = genome)
