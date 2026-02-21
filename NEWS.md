@@ -470,6 +470,8 @@
 * removed grr dependency from Matrix.utils, potentially affecting bb_gene_umap and bb_pseudobulk_mf.  Testing seems ok.
 * moved in project_data from blaseRtemplates
 
-# blaseRtools 0.0.0.9203
+# blaseRtools 0.0.0.9203-4
 
 * modified bb_make_trace to facilitate visualization of small ranges without centering on a gene.
+* modified bb_plot_gene_model to avoid dropping tiles
+* modified bb_plot_gene_model to extend arrow segments to the end of the gene 

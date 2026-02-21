@@ -133,6 +133,39 @@ trim_and_drop_levels <- function(x, trim_to, trim_type = "within") {
   return(x)
 }
 
+trim_x_to_single_range <- function(x, target, ignore.strand = TRUE,
+                                   keep_seqinfo_from = c("x", "target")) {
+  stopifnot(inherits(x, "GRanges"), inherits(target, "GRanges"))
+  keep_seqinfo_from <- match.arg(keep_seqinfo_from)
+
+  # Ensure target is a single envelope range
+  target <- range(target, ignore.strand = ignore.strand)
+  if (length(target) != 1L) stop("`target` must reduce to a single range.")
+
+  chr <- as.character(seqnames(target))[1]
+
+  # Keep only the target chromosome in x
+  x_chr <- GenomeInfoDb::keepSeqlevels(x, chr, pruning.mode = "coarse")
+
+  # Harmonize seqinfo/genome to avoid downstream seqlevels/genome headaches
+  if (keep_seqinfo_from == "x") {
+    seqinfo(target) <- seqinfo(x_chr)
+    genome(target)  <- genome(x_chr)
+  } else {
+    seqinfo(x_chr) <- seqinfo(target)
+    genome(x_chr)  <- genome(target)
+  }
+
+  # Subset to overlaps on chr, then clip to target bounds
+  restrict(
+    subsetByOverlaps(x_chr, target, ignore.strand = ignore.strand),
+    start = start(target),
+    end   = end(target)
+  )
+}
+
+
+
 # Internal helper: create an empty GRanges that preserves seqinfo/seqlevels/genome
 .empty_granges_like <- function(template) {
   gr <- GenomicRanges::GRanges()
@@ -335,8 +368,7 @@ bb_makeTrace <- function(obj,
   }
 
   # get the species-specific gene-model
-  selected_gene_model <-
-    trim_and_drop_levels(x = full_gene_model, trim_to = plot_range)
+  selected_gene_model <-  trim_x_to_single_range(x = full_gene_model, target = plot_range)
 
   # add in the peaks/features
  if (!is.null(peaks)) {
@@ -756,6 +788,29 @@ select_the_transcripts <- function(gr) {
 
 }
 
+seq_with_end <- function(from, to, by) {
+  x <- seq.int(from, to, by)
+  if (length(x) == 0L || tail(x, 1) != to) {
+    x <- c(x, to)
+  }
+  x
+}
+
+classify_utrs <- function(x) {
+  has5 <- "five_prime_UTR"  %in% x
+  has3 <- "three_prime_UTR" %in% x
+
+  if (has5 && has3) {
+    "both"
+  } else if (!has5 && !has3) {
+    "neither"
+  } else if (has5) {
+    "five_only"
+  } else {
+    "three_only"
+  }
+}
+
 
 #' Plot The Gene Model From A Trace Object
 #'
@@ -771,8 +826,12 @@ select_the_transcripts <- function(gr) {
 #' @export
 bb_plot_trace_model <- function(trace,
                                 font_face = "italic",
+                                line_width = 0.5,
                                 select_transcript = NULL,
                                 icon_fill = "cornsilk",
+                                icon_alpha = 0.5,
+                                arrow_scale = 1.0,
+                                segment_length_bp = 1000,
                                 debug = FALSE) {
   data_gr <- Trace.gene_model(trace)
   data_tbl <-
@@ -791,6 +850,7 @@ bb_plot_trace_model <- function(trace,
     ))
 
   transcripts <- select_the_transcripts(data_gr)
+
   if (!is.null(select_transcript)) {
     transcript_lookup <-
       bind_rows(as_tibble(mcols(hg38_granges_reduced)), as_tibble(mcols(zfin_granges_reduced)))
@@ -806,33 +866,115 @@ bb_plot_trace_model <- function(trace,
   data_to_plot <- data_tbl |>
     dplyr::filter(parent_transcript %in% transcripts)
 
+
   names_to_plot <- data_to_plot |>
     group_by(gene_name, parent_transcript, strand) |>
     summarise(gene_start = min(start), gene_end = max(end), .groups = "keep") |>
     mutate(mid_gene = (gene_start + gene_end) / 2)
 
+
+
+
   segments_to_plot <- map_dfr(
     .x = names_to_plot$gene_name,
-    .f = function(x, data = names_to_plot) {
-      filtered <- data |>
+    .f = function(x,
+                  genes = names_to_plot,
+                  data = data_to_plot,
+                  tr = trace) {
+      filtered <- genes |>
         dplyr::filter(gene_name == x)
+
+      data <- data |>
+        dplyr::filter(gene_name == x)
+
+      case <- classify_utrs(data$type)
+
+      if (filtered$strand == "+") {
+        switch(
+          case,
+          both      = {
+            xpos_from <- filtered$gene_start
+            xpos_to <- filtered$gene_end
+          },
+          neither   = {
+            xpos_from <-  start(Trace.plot_range(tr))
+            xpos_to <- end(Trace.plot_range(tr))
+          },
+          five_only = {
+            xpos_from <-  filtered$gene_start
+            xpos_to <- end(Trace.plot_range(tr))
+
+          },
+          three_only = {
+            xpos_from <-  start(Trace.plot_range(tr))
+            xpos_to <- filtered$gene_end
+          }
+        )
+
+      } else {
+        switch(
+          case,
+          both      = {
+            xpos_from <- filtered$gene_start
+            xpos_to <- filtered$gene_end
+          },
+          neither   = {
+            xpos_from <-  start(Trace.plot_range(tr))
+            xpos_to <- end(Trace.plot_range(tr))
+          },
+          five_only = {
+            xpos_from <-  start(Trace.plot_range(tr))
+            xpos_to <- filtered$gene_end
+
+          },
+          three_only = {
+            xpos_from <-  filtered$gene_start
+            xpos_to <- end(Trace.plot_range(tr))
+          }
+        )
+      }
+
+
       xpos <-
-        seq.int(from = filtered$gene_start,
-                to = filtered$gene_end,
-                by = 1000)
+        seq.int(from = xpos_from,
+                to = xpos_to,
+                by = segment_length_bp)
+      # xpos <-
+      #   seq_with_end(from = xpos_from,
+      #           to = xpos_to,
+      #           by = segment_length_bp)
       res <-
         tibble(
           gene_name = filtered$gene_name,
           parent_transcript = filtered$parent_transcript,
-          xpos = xpos[-length(xpos)],
-          xend = xpos + 1000,
+          # xpos = xpos[-length(xpos)],
+          xpos = xpos,
+          xend = xpos + segment_length_bp,
           strand = filtered$strand
-        )
+        ) |>
+        mutate(xend = case_when(xend > xpos_to ~ xpos_to,
+                                .default = xend))
       return(res)
     }
   )
 
+
+  # return(segments_to_plot)
+
+
+
   p <- ggplot() +
+    geom_tile(
+      data = data_to_plot,
+      mapping = aes(
+        x = mid,
+        y = parent_transcript,
+        width = width,
+        height = ht
+      ),
+      color = "black",
+      fill = alpha(icon_fill, alpha = icon_alpha)
+    ) +
     geom_segment(
       data = dplyr::filter(segments_to_plot, strand == "+"),
       mapping = aes(
@@ -841,11 +983,12 @@ bb_plot_trace_model <- function(trace,
         y = parent_transcript,
         yend = parent_transcript
       ),
+      linewidth = line_width,
       arrow = arrow(
         ends = "last",
         type = "open",
         angle = 45,
-        length = unit(x = 0.05, units = "inches")
+        length = unit(x = arrow_scale * 0.05, units = "inches")
       )
     ) +
     geom_segment(
@@ -856,24 +999,15 @@ bb_plot_trace_model <- function(trace,
         y = parent_transcript,
         yend = parent_transcript
       ),
+      linewidth = line_width,
       arrow = arrow(
         ends = "first",
         type = "open",
         angle = 45,
-        length = unit(x = 0.05, units = "inches")
+        length = unit(x = arrow_scale * 0.05, units = "inches")
       )
     ) +
-    geom_tile(
-      data = data_to_plot,
-      mapping = aes(
-        x = mid,
-        y = parent_transcript,
-        width = width,
-        height = ht
-      ),
-      color = "black",
-      fill = icon_fill
-    ) +
+
     geom_text(
       data = names_to_plot,
       mapping = aes(
@@ -886,17 +1020,18 @@ bb_plot_trace_model <- function(trace,
     )
   if (debug) {
     p <- p +
-      xlim(set_range(Trace.plot_range(trace)))
+      # xlim(set_range(Trace.plot_range(trace)))
+      coord_cartesian(clip = "off")
 
   } else {
     p <- p +
-      xlim(set_range(Trace.plot_range(trace))) +
+      # xlim(set_range(Trace.plot_range(trace)) + 2) +
       theme_no_x() +
       theme_min_y() +
-      labs(y = "Genes")
+      labs(y = "Genes") +
+      coord_cartesian(clip = "off")
 
   }
-
   return(p)
 }
 

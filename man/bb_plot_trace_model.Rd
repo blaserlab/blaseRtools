@@ -7,8 +7,12 @@
 bb_plot_trace_model(
   trace,
   font_face = "italic",
+  line_width = 0.5,
   select_transcript = NULL,
   icon_fill = "cornsilk",
+  icon_alpha = 0.5,
+  arrow_scale = 1,
+  segment_length_bp = 1000,
   debug = FALSE
 )
 }
