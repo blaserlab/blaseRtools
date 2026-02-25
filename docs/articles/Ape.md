@@ -273,7 +273,7 @@ data like so:
 vignette_CXCL1_ape <- bb_make_ape_genomic("CXCL1", genome = "hg38")
 
 vignette_CXCL1_ape
-#> LOCUS       CXCL1                   1916 bp ds-DNA     linear        21-FEB-2026 
+#> LOCUS       CXCL1                   1916 bp ds-DNA     linear        25-FEB-2026 
 #> COMMENT     Sequence is from Homo sapiens hg38.
 #> COMMENT     Gene models are from ensembl.
 #> COMMENT     Gene is CXCL1
@@ -410,7 +410,7 @@ coordinate rather than gene name.
 vignette_CXCL1_ape <- bb_make_ape_genomic("CXCL1", genome = "hg38", extend_left = 100, extend_right = 100)
 
 vignette_CXCL1_ape
-#> LOCUS       CXCL1                   2116 bp ds-DNA     linear        21-FEB-2026 
+#> LOCUS       CXCL1                   2116 bp ds-DNA     linear        25-FEB-2026 
 #> COMMENT     Sequence is from Homo sapiens hg38.
 #> COMMENT     Gene models are from ensembl.
 #> COMMENT     Gene is CXCL1
@@ -573,7 +573,7 @@ vignette_CXCL1_ape <- bb_make_ape_genomic(
 )
 
 vignette_CXCL1_ape
-#> LOCUS       CXCL1                   2116 bp ds-DNA     linear        21-FEB-2026 
+#> LOCUS       CXCL1                   2116 bp ds-DNA     linear        25-FEB-2026 
 #> COMMENT     Sequence is from Homo sapiens hg38.
 #> COMMENT     Gene models are from ensembl.
 #> COMMENT     Gene is CXCL1
@@ -781,7 +781,7 @@ new_features <- old_features[mcols(old_features)$type == "gene"]
 
 new_vignette_CXCL1_ape <- Ape.setFeatures(vignette_CXCL1_ape, gr = new_features)
 new_vignette_CXCL1_ape
-#> LOCUS       CXCL1                   2116 bp ds-DNA     linear        21-FEB-2026 
+#> LOCUS       CXCL1                   2116 bp ds-DNA     linear        25-FEB-2026 
 #> COMMENT     Sequence is from Homo sapiens hg38.
 #> COMMENT     Gene models are from ensembl.
 #> COMMENT     Gene is CXCL1

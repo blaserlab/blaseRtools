@@ -7,15 +7,23 @@
 bb_blind_images(analysis_file, file_column, output_dir)
 }
 \arguments{
-\item{analysis_file}{The analysis file for the experiment.  It should contain 1 line for every biological sample and should have a filename for every file to be blinded.}
+\item{analysis_file}{The analysis file for the experiment. It should contain
+1 line for every biological sample and should have a filename for every
+file to be blinded.}
 
-\item{file_column}{The column name in the analysis_file with the files to be blinded.}
+\item{file_column}{The column name (substring match) in the analysis_file
+with the files to be blinded.}
 
-\item{output_dir}{The linux-style file path for the directory that will hold the blinded images.  The directory will be created by the function.}
+\item{output_dir}{The linux-style file path for the directory that will hold
+the blinded images. The directory will be created by the function.}
 }
 \value{
 nothing
 }
 \description{
-Will copy and rename  the files and generate two files:  "blinding_key.csv" with the original and blinded file names, and "scoresheet.csv" with just the blinded filenames.  Add columns as needed to scoresheet, for example, runx_count.  Then run bb_unblind to rejoin scoresheet to the key and generate an unblinded result file.
+Will copy and rename the files and generate two files:
+"blinding_key.csv" with the original and blinded file names, and
+"scoresheet.csv" with just the blinded filenames. Add columns as needed
+to scoresheet, for example, runx_count. Then run bb_unblind to rejoin
+scoresheet to the key and generate an unblinded result file.
 }

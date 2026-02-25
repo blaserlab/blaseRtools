@@ -508,3 +508,7 @@
 - modified bb_plot_gene_model to avoid dropping tiles
 - modified bb_plot_gene_model to extend arrow segments to the end of the
   gene
+
+## blaseRtools 0.0.0.9205
+
+- updated blind images to correct edge cases

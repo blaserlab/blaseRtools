@@ -22,7 +22,8 @@ bb_blind_images(analysis_file, file_column, output_dir)
 
 - file_column:
 
-  The column name in the analysis_file with the files to be blinded.
+  The column name (substring match) in the analysis_file with the files
+  to be blinded.
 
 - output_dir:
 

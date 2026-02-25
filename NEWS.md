@@ -475,3 +475,7 @@
 * modified bb_make_trace to facilitate visualization of small ranges without centering on a gene.
 * modified bb_plot_gene_model to avoid dropping tiles
 * modified bb_plot_gene_model to extend arrow segments to the end of the gene 
+
+# blaseRtools 0.0.0.9205
+
+* updated blind images to correct edge cases
