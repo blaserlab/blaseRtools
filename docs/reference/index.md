@@ -99,6 +99,9 @@
   predefined sample-level cell metadata to cell data sets while
   importing
 
+- [`add_sig_annotations()`](add_sig_annotations.md) : Add significance
+  annotations to an existing ggplot
+
 - [`aggregate(`*`<Matrix>`*`)`](aggregate.Matrix.md) : Compute summary
   statistics of a Matrix
 
@@ -352,6 +355,12 @@
 
 - [`filter_cds()`](filter_cds.md) : Filter a CDS
 
+- [`geom_sig_annotations()`](geom_sig_annotations.md) : Build
+  significance annotation geoms
+
+- [`geom_sig_table()`](geom_sig_table.md) : Significance-table
+  annotations for ggplot2 discrete x-axes
+
 - [`geom_split_violin()`](geom_split_violin.md) : geom_split_violin
 
 - [`granges_to_features()`](granges_to_features.md) : Format a GRanges
@@ -364,6 +373,9 @@
 
 - [`normalize_batch()`](normalize_batch.md) : Noramalize a Data Table by
   Group and Batch
+
+- [`prepare_sig_annotations()`](prepare_sig_annotations.md) : Prepare
+  significance annotation data for a ggplot
 
 - [`project_data()`](project_data.md) : Activate Project Data
 

@@ -512,3 +512,7 @@
 ## blaseRtools 0.0.0.9205
 
 - updated blind images to correct edge cases
+
+## blaseRtools 0.0.0.9206
+
+- added geom-sig-table
