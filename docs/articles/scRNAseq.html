@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">blaseRtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9206</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9207</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -292,7 +292,7 @@ file. This will produce a list of cds objects for us.</p>
 <span>  .f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">conf</span> <span class="op">=</span> <span class="va">vignette_config</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">conf_filtered</span> <span class="op">&lt;-</span> <span class="va">conf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">sample</span> <span class="op">==</span> <span class="va">x</span><span class="op">)</span></span>
-<span>    <span class="va">cds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bb_load_tenx_targz.html">bb_load_tenx_targz</a></span><span class="op">(</span>targz_file <span class="op">=</span> <span class="va">conf_filtered</span><span class="op">$</span><span class="va">targz_path</span>,</span>
+<span>    <span class="va">cds</span> <span class="op">&lt;-</span> <span class="fu">bb_load_tenx_targz</span><span class="op">(</span>targz_file <span class="op">=</span> <span class="va">conf_filtered</span><span class="op">$</span><span class="va">targz_path</span>,</span>
 <span>                              sample_metadata_tbl <span class="op">=</span> <span class="va">conf_filtered</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>                                <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sample</span>, <span class="va">targz_path</span><span class="op">)</span><span class="op">)</span></span>
 <span>                              <span class="op">)</span></span>

@@ -292,9 +292,6 @@ module of functions are linked when available.
 - [`bb_load_tenx_h5()`](bb_load_tenx_h5.md) : Load a 10X Genomics H5
   File and Return a CDS
 
-- [`bb_load_tenx_targz()`](bb_load_tenx_targz.md) : Load 10X Data Into
-  CDS
-
 - [`bb_loupeR()`](bb_loupeR.md) : Create a Loupe File from a Cell Data
   Set
 

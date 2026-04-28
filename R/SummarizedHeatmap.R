@@ -1,12 +1,12 @@
-setOldClass("dendrogram", prototype = "dendrogram")
-setClassUnion("dendrogramOrNULL", c("dendrogram", "NULL"))
+methods::setOldClass("dendrogram")
+methods::setClassUnion("dendrogramOrNULL", c("dendrogram", "NULL"))
 
 # class definition --------------------
 #' @rdname SummarizedHeatmap
 #' @export
 #' @import methods
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
-.SummarizedHeatmap <- setClass(
+.SummarizedHeatmap <- methods::setClass(
   "SummarizedHeatmap",
   slots = list(
     colDendro = "dendrogramOrNULL",
@@ -17,11 +17,14 @@ setClassUnion("dendrogramOrNULL", c("dendrogram", "NULL"))
   prototype = list(
     colDendro = NULL,
     rowDendro = NULL,
-    colOrder = NULL,
-    rowOrder = NULL
+    colOrder = character(),
+    rowOrder = character()
   ),
   contains = "SummarizedExperiment"
 )
+
+
+
 
 # constructor ----------------------
 #' @title An S4 Class for Holding Heatmap Data

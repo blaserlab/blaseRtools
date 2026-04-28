@@ -483,3 +483,10 @@
 # blaseRtools 0.0.0.9206
 
 * added geom-sig-table
+
+# blaseRtools 0.0.0.9207
+
+* debugged bb_cite_umap
+* debugged SummarizedHeatmap
+* Added option to split citeseq in bb_load_tenx_h5
+* removed bb_load_tenx_targz

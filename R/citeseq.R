@@ -38,38 +38,38 @@ bb_cite_umap <-
       cli::cli_abort("The requested assay is not available.")
     data <- SummarizedExperiment::assays(cds_alt)[[assay]]
     data <- t(data)
-    data_tbl <- as_tibble(data) |>
-      mutate(cell_id = rownames(data))
+    data_tbl <- tibble::as_tibble(data) |>
+      dplyr::mutate(cell_id = rownames(data))
 
     # find the column we want to plot and rename it
     antibody_id <- bb_rowmeta(cds_alt) |>
-      filter(gene_short_name %in% antibody) |>
-      pull(id)
+      dplyr::filter(gene_short_name %in% antibody) |>
+      dplyr::pull(id)
     if (length(antibody_id) == 0)
       cli::cli_abort("The requested antibody is not available in the data object.")
     data_tbl <- data_tbl |>
-      pivot_longer(cols = -cell_id) |>
-      filter(name == antibody_id) |>
+      tidyr::pivot_longer(cols = -cell_id) |>
+      dplyr::filter(name == antibody_id) |>
       dplyr::rename(antibody_id = name, binding = value) |>
-      left_join(
+      dplyr::left_join(
         bb_rowmeta(cds_alt) |>
-          filter(gene_short_name %in% antibody) |>
-          select(antibody_id = feature_id, gene_short_name),
+          dplyr::filter(gene_short_name %in% antibody) |>
+          dplyr::select(antibody_id = feature_id, gene_short_name),
         by = "antibody_id"
       ) |>
-      select(cell_id, antibody = gene_short_name, binding)
+      dplyr::select(cell_id, antibody = gene_short_name, binding)
 
     dims <- SingleCellExperiment::reducedDims(cds)$UMAP
     colnames(dims) <- c("data_dim_1", "data_dim_2")
 
-    dims_tbl <- as_tibble(dims) |>
-      mutate(cell_id = rownames(dims))
-    plot_tbl <- full_join(dims_tbl, data_tbl, by = "cell_id")
+    dims_tbl <- tibble::as_tibble(dims) |>
+      dplyr::mutate(cell_id = rownames(dims))
+    plot_tbl <- dplyr::full_join(dims_tbl, data_tbl, by = "cell_id")
 
     # make the plot
     # plot <- ggplot(plot_tbl, mapping = aes(x = data_dim_1, y = data_dim_2, ))
-    background_data <- plot_tbl |> filter(is.na(binding))
-    foreground_data <- plot_tbl |> filter(!is.na(binding))
+    background_data <- plot_tbl |> dplyr::filter(is.na(binding))
+    foreground_data <- plot_tbl |> dplyr::filter(!is.na(binding))
 
     # optionally order the cells to un-bury rare expressing cells
     if (order)
