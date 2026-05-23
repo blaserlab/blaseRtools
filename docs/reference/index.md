@@ -308,6 +308,9 @@
 - [`bb_seurat_anno()`](bb_seurat_anno.md) : A function to generate
   automated cell labelings with Seurat
 
+- [`bb_souporcell_matrix()`](bb_souporcell_matrix.md) : Build a
+  Souporcell genotype-by-SNP allele-fraction matrix
+
 - [`bb_split_atac()`](bb_split_atac.md) : Split Out Peaks Data
 
 - [`bb_split_citeseq()`](bb_split_citeseq.md) : Split Antibody Capture

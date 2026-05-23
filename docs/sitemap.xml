@@ -116,6 +116,7 @@
 <url><loc>/reference/bb_rowmeta.html</loc></url>
 <url><loc>/reference/bb_seurat_anno.html</loc></url>
 <url><loc>/reference/bb_singlecell_anno.html</loc></url>
+<url><loc>/reference/bb_souporcell_matrix.html</loc></url>
 <url><loc>/reference/bb_split_atac.html</loc></url>
 <url><loc>/reference/bb_split_citeseq.html</loc></url>
 <url><loc>/reference/bb_tbl_to_coldata.html</loc></url>
@@ -130,6 +131,7 @@
 <url><loc>/reference/data_summary_mean_se.html</loc></url>
 <url><loc>/reference/data_summary_median_iqr.html</loc></url>
 <url><loc>/reference/data_summary_median_mad.html</loc></url>
+<url><loc>/reference/dot-read_souporcell_variant_table.html</loc></url>
 <url><loc>/reference/filter_cds.html</loc></url>
 <url><loc>/reference/geom_sig_annotations.html</loc></url>
 <url><loc>/reference/geom_sig_table.html</loc></url>

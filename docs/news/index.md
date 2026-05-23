@@ -523,3 +523,7 @@
 - debugged SummarizedHeatmap
 - Added option to split citeseq in bb_load_tenx_h5
 - removed bb_load_tenx_targz
+
+## blaseRtools 0.0.0.9208
+
+- added bb_souporcell_matrix
