@@ -527,3 +527,7 @@
 ## blaseRtools 0.0.0.9208
 
 - added bb_souporcell_matrix
+
+## blaseRtools 0.0.0.9209
+
+- patched geom_sig_table to use npc units better

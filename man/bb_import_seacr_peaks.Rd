@@ -30,8 +30,4 @@ The function reads peak files produced by MACS.  Optionally add a group variable
 \code{\link[readr]{read_delim}}
 \code{\link[dplyr]{select}}, \code{\link[dplyr]{mutate}}
 \code{\link[GenomicRanges]{makeGRangesFromDataFrame}}
-
-\code{\link[readr]{read_delim}}
-\code{\link[dplyr]{select}}, \code{\link[dplyr]{mutate}}
-\code{\link[GenomicRanges]{makeGRangesFromDataFrame}}
 }

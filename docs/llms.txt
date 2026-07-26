@@ -450,11 +450,8 @@ module of functions are linked when available.
 
 - [`filter_cds()`](filter_cds.md) : Filter a CDS
 
-- [`geom_sig_annotations()`](geom_sig_annotations.md) : Build
-  significance annotation geoms
-
-- [`geom_sig_table()`](geom_sig_table.md) : Significance-table
-  annotations for ggplot2 discrete x-axes
+- [`geom_sig_table()`](geom_sig_table.md) : Add significance labels and
+  optional brackets from a table
 
 - [`geom_split_violin()`](geom_split_violin.md) : geom_split_violin
 
@@ -468,9 +465,6 @@ module of functions are linked when available.
 
 - [`normalize_batch()`](normalize_batch.md) : Noramalize a Data Table by
   Group and Batch
-
-- [`prepare_sig_annotations()`](prepare_sig_annotations.md) : Prepare
-  significance annotation data for a ggplot
 
 - [`project_data()`](project_data.md) : Activate Project Data
 

@@ -15,3 +15,8 @@ Useful links:
 
 **Maintainer**: Brad Blaser <bradley.blaser@osumc.edu>
 ([ORCID](https://orcid.org/0000-0002-3168-5423))
+
+Authors:
+
+- Brad Blaser <bradley.blaser@osumc.edu>
+  ([ORCID](https://orcid.org/0000-0002-3168-5423))

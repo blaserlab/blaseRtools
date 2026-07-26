@@ -20,4 +20,9 @@ Useful links:
 \author{
 \strong{Maintainer}: Brad Blaser \email{bradley.blaser@osumc.edu} (\href{https://orcid.org/0000-0002-3168-5423}{ORCID})
 
+Authors:
+\itemize{
+  \item Brad Blaser \email{bradley.blaser@osumc.edu} (\href{https://orcid.org/0000-0002-3168-5423}{ORCID})
+}
+
 }

@@ -44,8 +44,3 @@ A GRanges object
 [`select`](https://dplyr.tidyverse.org/reference/select.html),
 [`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)
 [`makeGRangesFromDataFrame`](https://rdrr.io/pkg/GenomicRanges/man/makeGRangesFromDataFrame.html)
-
-[`read_delim`](https://readr.tidyverse.org/reference/read_delim.html)
-[`select`](https://dplyr.tidyverse.org/reference/select.html),
-[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)
-[`makeGRangesFromDataFrame`](https://rdrr.io/pkg/GenomicRanges/man/makeGRangesFromDataFrame.html)
