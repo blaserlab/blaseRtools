@@ -554,7 +554,7 @@ set_range <- function(grange) {
 }
 
 #' @import ggplot2
-theme_no_x <- function() {
+theme_no_x <- function(font_size) {
   theme(
     axis.text.x = element_blank(),
     axis.ticks.x  = element_blank(),
@@ -1025,7 +1025,7 @@ bb_plot_trace_model <- function(trace,
 
   } else {
     p <- p +
-      # xlim(set_range(Trace.plot_range(trace)) + 2) +
+      xlim(set_range(Trace.plot_range(trace)) + 2) +
       theme_no_x() +
       theme_min_y() +
       labs(y = "Genes") +

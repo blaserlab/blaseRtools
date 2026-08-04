@@ -531,3 +531,7 @@
 ## blaseRtools 0.0.0.9209
 
 - patched geom_sig_table to use npc units better
+
+## blaseRtools 0.0.0.9210
+
+- fixed bug in bb_plot_trace_model where the x range was set incorrectly
