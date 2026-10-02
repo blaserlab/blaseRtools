@@ -8,6 +8,7 @@ Blaser Lab.
 You can install the latest version of blaseRtools with:
 
 ``` r
+
 # using base function
 install.packages('blaseRtools', repos = c('https://blaserlab.r-universe.dev', 'https://cloud.r-project.org'))
 

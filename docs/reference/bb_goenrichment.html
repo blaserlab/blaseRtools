@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">blaseRtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9210</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9211</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +21,6 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Ape.html">Reading, Editing and Writing DNA Sequences with Ape</a></li>
     <li><a class="dropdown-item" href="../articles/blind_images.html">Blinding Images</a></li>
     <li><a class="dropdown-item" href="../articles/scRNAseq.html">scRNA-seq Data Analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/SummarizedHeatmap.html">Summarized Heatmap Vignette</a></li>
     <li><a class="dropdown-item" href="../articles/trace.html">Trace:  Representing Track-like Data in R</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -77,8 +76,21 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list of items including the enrichment results.</p>
-    </div>
+    <p>A list with three items:</p><dl><dt>sampleGOdata</dt>
+<dd><p>The <code>topGOdata</code> object built from <code>query</code>/<code>reference</code>.</p></dd>
+
+<dt>resultFisher</dt>
+<dd><p>The <code>topGOresult</code> object returned by <code>runTest()</code>.</p></dd>
+
+<dt>res_table</dt>
+<dd><p>A tibble of the top 100 GO terms (by <code><a href="https://rdrr.io/pkg/topGO/man/diagnosticMethods.html" class="external-link">GenTable</a></code>),
+with <code>classicFisher</code> replaced by the raw numeric p-values taken
+directly from <code>resultFisher@score</code> (rather than GenTable's
+character-formatted, precision-truncated values) so downstream
+consumers (e.g. <code><a href="bb_gosummary.html">bb_gosummary</a></code>) receive a numeric column.</p></dd>
+
+
+</dl></div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

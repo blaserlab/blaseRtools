@@ -28,7 +28,7 @@ differences:
 
 - trace_data: The main track you want to show. Usually it will depict
   binding or accessibility as a continuous variable across a genomic
-  region.  
+  region.\
 - peaks: Defined regions of accessibility or binding represented as
   binary values (peak present or not) across a genomic region. Usually
   defined by a peak caller such as MACS.
@@ -49,6 +49,7 @@ differences:
 An example of each of these slots:
 
 ``` r
+
 library(blaseRtools)
 # trace_data
 Trace.data(zf_prkcda_trace)
@@ -175,6 +176,7 @@ much lighter-weight alternative.
 You make a Trace object from a Signac/Seurat object like so:
 
 ``` r
+
 # note this code will not run
 zf_prkcda_trace <- bb_makeTrace(obj = zf,
                              genome = "danRer11",
@@ -184,6 +186,7 @@ zf_prkcda_trace <- bb_makeTrace(obj = zf,
 ```
 
 ``` r
+
 # loaded by blaseRtools
 zf_prkcda_trace
 #> A Trace object from genome danRer11, sequence chr6.
@@ -198,6 +201,7 @@ You make a Trace object from bulk data like so. Filtering the full
 GRange will speed up processing considerably.
 
 ``` r
+
 # note this code will not run
 e4_PRKCD_trace <- bb_makeTrace(obj = plyranges::filter(e4_huvec_GRange_full.pkc_cxcl8, seqnames == "chr3"),
                               gene_to_plot = "PRKCD",
@@ -208,6 +212,7 @@ e4_PRKCD_trace <- bb_makeTrace(obj = plyranges::filter(e4_huvec_GRange_full.pkc_
 ```
 
 ``` r
+
 # loaded by blaseRtools
 e4_PRKCD_trace
 #> A Trace object from genome hg38, sequence chr3.
@@ -237,6 +242,7 @@ You can plot the trace data using bb_plot_trace_data. Without any other
 arguments, it looks like this:
 
 ``` r
+
 library(cowplot)
 theme_set(theme_cowplot(font_size = 12))
 bb_plot_trace_data(zf_prkcda_trace)
@@ -252,6 +258,7 @@ before making the Trace object. If there are other variables you wish to
 display you should add them to the group variable
 
 ``` r
+
 dat <- Trace.data(zf_prkcda_trace) |> 
   plyranges::mutate(group_alt = paste0(group, "_alt"))  
 zf_prkcda_trace <- Trace.setData(zf_prkcda_trace, gr = dat)
@@ -263,6 +270,7 @@ bb_plot_trace_data(zf_prkcda_trace, facet_var = "group_alt", color_var = "group_
 You can set the color palette:
 
 ``` r
+
 dat <- Trace.data(zf_prkcda_trace) |> 
   plyranges::mutate(group_alt = paste0(group, "_alt"))  
 zf_prkcda_trace <- Trace.setData(zf_prkcda_trace, gr = dat)
@@ -284,6 +292,7 @@ bb_plot_trace_data(zf_prkcda_trace,
 You can stack the traces if you want:
 
 ``` r
+
 bb_plot_trace_data(zf_prkcda_trace, 
                    facet_var = NULL, 
                    color_var = "group_alt", 
@@ -297,6 +306,7 @@ For bulk data, you may have imported the values you want to plot under
 another variable name
 
 ``` r
+
 Trace.data(e4_PRKCD_trace)
 #> GRanges object with 7661 ranges and 2 metadata columns:
 #>          seqnames            ranges strand |       group  coverage
@@ -323,6 +333,7 @@ default it picks the APPRIS prinicpal1 transcript for each gene. UTRs
 are shown in half the height of coding exons.
 
 ``` r
+
 bb_plot_trace_model(zf_prkcda_trace)
 ```
 
@@ -332,6 +343,7 @@ Or you can show a specific transcript. There is only 1 transcript for
 this gene.
 
 ``` r
+
 bb_plot_trace_model(zf_prkcda_trace, select_transcript = "ENSDART00000033819")
 ```
 
@@ -340,6 +352,7 @@ bb_plot_trace_model(zf_prkcda_trace, select_transcript = "ENSDART00000033819")
 Here is the same gene in humans with multiple transcripts:
 
 ``` r
+
 # prinicpal1 transcript
 bb_plot_trace_model(e4_PRKCD_trace)
 ```
@@ -347,6 +360,7 @@ bb_plot_trace_model(e4_PRKCD_trace)
 ![](trace_files/figure-html/unnamed-chunk-14-1.png)
 
 ``` r
+
 # an alternative transcript
 bb_plot_trace_model(e4_PRKCD_trace, select_transcript = "ENST00000651505")
 ```
@@ -356,6 +370,7 @@ bb_plot_trace_model(e4_PRKCD_trace, select_transcript = "ENST00000651505")
 If you want you can change the fill color of the exon icons:
 
 ``` r
+
 # prinicpal1 transcript
 bb_plot_trace_model(e4_PRKCD_trace, icon_fill = "orange")
 ```
@@ -367,6 +382,7 @@ bb_plot_trace_model(e4_PRKCD_trace, icon_fill = "orange")
 This is relatively straightforward:
 
 ``` r
+
 bb_plot_trace_peaks(zf_prkcda_trace)
 ```
 
@@ -378,6 +394,7 @@ This function plots bezier curves between the center of linked peaks.
 The color in the figure indicates the link score.
 
 ``` r
+
 bb_plot_trace_links(zf_prkcda_trace)
 ```
 
@@ -386,6 +403,7 @@ color scale could be scaled differently to show the differences more
 clearly.
 
 ``` r
+
 bb_plot_trace_links(zf_prkcda_trace, link_range = c(0.4,0.8))
 ```
 
@@ -394,6 +412,7 @@ bb_plot_trace_links(zf_prkcda_trace, link_range = c(0.4,0.8))
 You can also change the colors.
 
 ``` r
+
 bb_plot_trace_links(zf_prkcda_trace, 
                     link_range = c(0.4,0.8), link_low_color = "purple", link_high_color = "green")
 ```
@@ -403,6 +422,7 @@ scores outside the range, they will be shown in dark grey which is a
 default for ggplot:
 
 ``` r
+
 bb_plot_trace_links(zf_prkcda_trace, 
                     link_range = c(0.5,0.8), 
                     link_low_color = "purple", 
@@ -415,6 +435,7 @@ You can also trim those using the cutoff parameter (default is 0, no
 cutoff)
 
 ``` r
+
 bb_plot_trace_links(zf_prkcda_trace, 
                     link_range = c(0.5,0.8), 
                     link_low_color = "purple", 
@@ -432,6 +453,7 @@ The default shows the plot range in kb, indicating the genome and the
 chromosome:
 
 ``` r
+
 bb_plot_trace_axis(zf_prkcda_trace)
 ```
 
@@ -441,12 +463,14 @@ You can add a custom axis title if you want. You can do this in the
 function or as a separate layer.
 
 ``` r
+
 bb_plot_trace_axis(zf_prkcda_trace, xtitle = "My Custom Title")
 ```
 
 ![](trace_files/figure-html/unnamed-chunk-24-1.png)
 
 ``` r
+
 bb_plot_trace_axis(zf_prkcda_trace) + labs(x = "Another Custom Title")
 ```
 
@@ -461,6 +485,7 @@ cleaner.
 We use patchwork to compose the tracks into a full plot:
 
 ``` r
+
 library("patchwork")
 bb_plot_trace_data(zf_prkcda_trace) / 
 bb_plot_trace_model(zf_prkcda_trace) / 
@@ -474,6 +499,7 @@ bb_plot_trace_axis(zf_prkcda_trace)
 This needs some help, so we add a plot layout function call:
 
 ``` r
+
 bb_plot_trace_data(zf_prkcda_trace) / 
 bb_plot_trace_model(zf_prkcda_trace) / 
 bb_plot_trace_peaks(zf_prkcda_trace) / 
@@ -488,6 +514,7 @@ This looks pretty good, but the Coverage plot y axes are a little
 cramped at this size:
 
 ``` r
+
 (bb_plot_trace_data(zf_prkcda_trace) + scale_y_continuous(breaks = c(0,20))) / 
 bb_plot_trace_model(zf_prkcda_trace) / 
 bb_plot_trace_peaks(zf_prkcda_trace) / 
@@ -504,6 +531,7 @@ parentheses to keep from confusing patchwork. Not the end of the world.
 It also works for bulk data:
 
 ``` r
+
 bb_plot_trace_data(e4_PRKCD_trace) / 
 bb_plot_trace_model(e4_PRKCD_trace) / 
 bb_plot_trace_peaks(e4_PRKCD_trace) / 
@@ -518,6 +546,7 @@ placeholder that was introduced when I made the object. I can silence
 the facet variable by setting `facet_var = NULL` to make this go away.
 
 ``` r
+
 bb_plot_trace_data(e4_PRKCD_trace, facet_var = NULL) / 
 bb_plot_trace_model(e4_PRKCD_trace) / 
 bb_plot_trace_peaks(e4_PRKCD_trace) / 
@@ -531,6 +560,7 @@ Or I can put some meaningful information in the facet variable to serve
 as a helpful title:
 
 ``` r
+
 dat <- Trace.data(e4_PRKCD_trace) |> 
   plyranges::mutate(group = "E4-HUVEC")
 e4_PRKCD_trace_alt <- Trace.setData(e4_PRKCD_trace, dat)

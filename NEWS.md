@@ -506,3 +506,4 @@
 # blaseRtools 0.0.0.9211
 
 * SummarizedHeatmap class, plotting functions, tests, and vignette split out into their own package; removed from blaseRtools
+* updated bb_goenrichment to return classicFisher results as numeric values

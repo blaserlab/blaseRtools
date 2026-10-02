@@ -72,6 +72,7 @@ A SummarizedHeatmap object
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 if(interactive()){
  #EXAMPLE1

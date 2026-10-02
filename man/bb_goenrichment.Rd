@@ -21,7 +21,16 @@ bb_goenrichment(
 \item{go_db}{GO term database Default: c("org.Hs.eg.db", "org.Dr.eg.db", "org.Mm.eg.db")}
 }
 \value{
-A list of items including the enrichment results.
+A list with three items:
+\describe{
+\item{sampleGOdata}{The \code{topGOdata} object built from \code{query}/\code{reference}.}
+\item{resultFisher}{The \code{topGOresult} object returned by \code{runTest()}.}
+\item{res_table}{A tibble of the top 100 GO terms (by \code{\link[topGO]{GenTable}}),
+with \code{classicFisher} replaced by the raw numeric p-values taken
+directly from \code{resultFisher@score} (rather than GenTable's
+character-formatted, precision-truncated values) so downstream
+consumers (e.g. \code{\link{bb_gosummary}}) receive a numeric column.}
+}
 }
 \description{
 A function to find enriched go terms from a query list of gene names relative to a reference list of gene names.

@@ -25,6 +25,7 @@ highlights. The final heatmap is composed using *patchwork*.
 First obtain a matrix of values. The columns and rows should be named.
 
 ``` r
+
 set.seed(123)
 mat <- matrix(rnorm(100), ncol=5)
 colnames(mat) <- letters[1:5]
@@ -34,6 +35,7 @@ rownames(mat) <- letters[6:25]
 Next use the constructor function to generate the heatmap.
 
 ``` r
+
 library(blaseRtools)
 library(SummarizedExperiment)
 library(patchwork)
@@ -54,6 +56,7 @@ will want to extract this information from the same object that
 generated the matrix. For example, a cell_data_set object.
 
 ``` r
+
 colData(my_heatmap)$sample_type <- c("vowel", "consonant", "consonant", "consonant", "vowel")
 
 isVowel <- function(char) char %in% c('a', 'e', 'i', 'o', 'u')
@@ -64,6 +67,7 @@ Use the “getter” functions to extract the metadata and check to be sure
 it was added correctly.
 
 ``` r
+
 colData(my_heatmap)
 #> DataFrame with 5 rows and 1 column
 #>   sample_type
@@ -116,6 +120,7 @@ begin with but will become clear by the end.
 A simple example:
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm)
   p1
@@ -128,6 +133,7 @@ my_heatmap_plot_function(my_heatmap)
 Change the color palette:
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm, high = "purple", mid = "black", low = "yellow")
   p1
@@ -141,6 +147,7 @@ All plotting functions return ggplots, so if an internal parameter you
 want to change is not available, you can do so by adding layers:
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm) + 
     labs(fill = "Expr.") + 
@@ -159,12 +166,14 @@ my_heatmap_plot_function(my_heatmap)
 You make the column and row dendrograms using their own functions:
 
 ``` r
+
 bb_plot_heatmap_colDendro(my_heatmap)
 ```
 
 ![](SummarizedHeatmap_files/figure-html/unnamed-chunk-9-1.png)
 
 ``` r
+
 bb_plot_heatmap_rowDendro(my_heatmap)
 ```
 
@@ -175,6 +184,7 @@ heatmap like this. Note how we are using the patchwork to make the
 layout
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm)
   p2 <- bb_plot_heatmap_colDendro(hm)
@@ -199,6 +209,7 @@ Currently the only aesthetic you can change for the dendrograms is
 linewidth:
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm)
   p2 <- bb_plot_heatmap_colDendro(hm, linewidth = 3)
@@ -224,6 +235,7 @@ my_heatmap_plot_function(my_heatmap)
 Adding column annotations:
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm)
   p2 <- bb_plot_heatmap_colDendro(hm)
@@ -251,6 +263,7 @@ my_heatmap_plot_function(my_heatmap)
 row annotations:
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm)
   p2 <- bb_plot_heatmap_colDendro(hm)
@@ -279,6 +292,7 @@ That looks weird because *patchwork* is leaving space for the
 “feature_type” text. You can tell it to override this like so:
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm)
   p2 <- bb_plot_heatmap_colDendro(hm)
@@ -306,6 +320,7 @@ my_heatmap_plot_function(my_heatmap)
 You can also move the annotation text to the other side:
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm)
   p2 <- bb_plot_heatmap_colDendro(hm)
@@ -335,6 +350,7 @@ my_heatmap_plot_function(my_heatmap)
 You can add row and column annotations together:
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm)
   p2 <- bb_plot_heatmap_colDendro(hm)
@@ -369,6 +385,7 @@ cherry pick a few to show your reader.
 2.  Add a new plot with the highlights to the patchwork:
 
 ``` r
+
 my_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm) + 
     theme(axis.text.y = element_blank(),
@@ -413,6 +430,7 @@ Here is another example with more customizations.
 3.  Renaming the labels for annotations
 
 ``` r
+
 mat <- matrix(rnorm(100), ncol = 5)
 
 sample_data <- tibble(
@@ -508,6 +526,7 @@ setting the sides of the annotations and dendrograms the way you like.
 not you flip the main heatmap).
 
 ``` r
+
 my_flipped_heatmap_plot_function <- function(hm) {
   p1 <- bb_plot_heatmap_main(hm, flip = TRUE)
   p2 <- bb_plot_heatmap_colDendro(hm, side = "left")
@@ -559,6 +578,7 @@ the constructor function. Note that you cannot manually specify
 row/column order and retain a dendrogram for that dimension.
 
 ``` r
+
 set.seed(123)
 mat <- matrix(rnorm(100), ncol = 5)
 colnames(mat) <- letters[1:5]

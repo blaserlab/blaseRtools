@@ -535,3 +535,10 @@
 ## blaseRtools 0.0.0.9210
 
 - fixed bug in bb_plot_trace_model where the x range was set incorrectly
+
+## blaseRtools 0.0.0.9211
+
+- SummarizedHeatmap class, plotting functions, tests, and vignette split
+  out into their own package; removed from blaseRtools
+- updated bb_goenrichment to return classicFisher results as numeric
+  values

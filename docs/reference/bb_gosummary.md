@@ -29,4 +29,23 @@ bb_gosummary(
 
 ## Value
 
-A list of items for downstream plotting
+A list with three items:
+
+- simMatrix:
+
+  The GO term semantic similarity matrix from
+  [`calculateSimMatrix`](https://rdrr.io/pkg/rrvgo/man/calculateSimMatrix.html).
+
+- scores:
+
+  A named numeric vector, one entry per GO term in `x$res_table`, giving
+  `-log10(classicFisher)` for that term's enrichment p-value (from
+  `x$res_table$classicFisher`). Higher values indicate stronger
+  enrichment.
+
+- reducedTerms:
+
+  The term-reduction result from
+  [`reduceSimMatrix`](https://rdrr.io/pkg/rrvgo/man/reduceSimMatrix.html),
+  whose `score` column is this same `-log10(classicFisher)` value for
+  each retained term.

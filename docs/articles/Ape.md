@@ -1,6 +1,7 @@
 # Reading, Editing and Writing DNA Sequences with Ape
 
 ``` r
+
 # Attach the packages you will need for the analysis.
 library(blaseRtools)
 library(blaseRdata)
@@ -58,6 +59,7 @@ to read into R so that you can extract the sequence and/or feature
 information for programmatic analysis.
 
 ``` r
+
 # Read in the data
 
 vignette_CXCL8_ape <- bb_parseape(system.file("extdata/hg38_CXCL8.ape", package = "blaseRdata"))
@@ -67,6 +69,7 @@ You can show the sequence information in your R console by typing the
 name of the Ape object like so:
 
 ``` r
+
 # Show the Ape Data 
 
 vignette_CXCL8_ape
@@ -270,10 +273,11 @@ data like so:
 
 ``` r
 
+
 vignette_CXCL1_ape <- bb_make_ape_genomic("CXCL1", genome = "hg38")
 
 vignette_CXCL1_ape
-#> LOCUS       CXCL1                   1916 bp ds-DNA     linear         4-AUG-2026 
+#> LOCUS       CXCL1                   1916 bp ds-DNA     linear         2-OCT-2026 
 #> COMMENT     Sequence is from Homo sapiens hg38.
 #> COMMENT     Gene models are from ensembl.
 #> COMMENT     Gene is CXCL1
@@ -406,11 +410,12 @@ You may also add flanking sequences or specify genomic regions by
 coordinate rather than gene name.
 
 ``` r
+
 # Get genomic sequence and extend 100 bp left and right.
 vignette_CXCL1_ape <- bb_make_ape_genomic("CXCL1", genome = "hg38", extend_left = 100, extend_right = 100)
 
 vignette_CXCL1_ape
-#> LOCUS       CXCL1                   2116 bp ds-DNA     linear         4-AUG-2026 
+#> LOCUS       CXCL1                   2116 bp ds-DNA     linear         2-OCT-2026 
 #> COMMENT     Sequence is from Homo sapiens hg38.
 #> COMMENT     Gene models are from ensembl.
 #> COMMENT     Gene is CXCL1
@@ -549,6 +554,7 @@ feature that you knew about in terms of genomic coordinates that you
 wanted include when making the object. Here is how you do that:
 
 ``` r
+
 # Get genomic sequence and extend 100 bp left and right.
 # Now add a new custom feature based on original coordinates:  chr4 73869293-73871408
 vignette_CXCL1_ape <- bb_make_ape_genomic(
@@ -573,7 +579,7 @@ vignette_CXCL1_ape <- bb_make_ape_genomic(
 )
 
 vignette_CXCL1_ape
-#> LOCUS       CXCL1                   2116 bp ds-DNA     linear         4-AUG-2026 
+#> LOCUS       CXCL1                   2116 bp ds-DNA     linear         2-OCT-2026 
 #> COMMENT     Sequence is from Homo sapiens hg38.
 #> COMMENT     Gene models are from ensembl.
 #> COMMENT     Gene is CXCL1
@@ -717,6 +723,7 @@ Methods are provided for saving Ape objects as either genbank/Ape files
 or fasta files:
 
 ``` r
+
 # Save as a genbank/Ape file
 Ape.save(vignette_CXCL1_ape, out = "/path/to/file/filename.ape")
 
@@ -733,6 +740,7 @@ know a bit more about GRanges and Biostrings.
 To get the sequence or features from an Ape Object:
 
 ``` r
+
 # get the sequence
 Ape.DNA(vignette_CXCL1_ape)
 #> DNAStringSet object of length 1:
@@ -775,13 +783,14 @@ Ape.granges(vignette_CXCL1_ape)
 You can set the features of an Ape object like so:
 
 ``` r
+
 # define the new feature set
 old_features <- Ape.granges(vignette_CXCL1_ape)
 new_features <- old_features[mcols(old_features)$type == "gene"]
 
 new_vignette_CXCL1_ape <- Ape.setFeatures(vignette_CXCL1_ape, gr = new_features)
 new_vignette_CXCL1_ape
-#> LOCUS       CXCL1                   2116 bp ds-DNA     linear         4-AUG-2026 
+#> LOCUS       CXCL1                   2116 bp ds-DNA     linear         2-OCT-2026 
 #> COMMENT     Sequence is from Homo sapiens hg38.
 #> COMMENT     Gene models are from ensembl.
 #> COMMENT     Gene is CXCL1
@@ -851,6 +860,7 @@ Ape file you will use the [`Ape.fimo()`](../reference/Ape.fimo.md)
 function.
 
 ``` r
+
 Ape.fimo(vignette_CXCL1_ape, fimo_feature = "CXCL1_gene")
 ```
 

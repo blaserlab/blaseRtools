@@ -36,4 +36,22 @@ bb_goenrichment(
 
 ## Value
 
-A list of items including the enrichment results.
+A list with three items:
+
+- sampleGOdata:
+
+  The `topGOdata` object built from `query`/`reference`.
+
+- resultFisher:
+
+  The `topGOresult` object returned by `runTest()`.
+
+- res_table:
+
+  A tibble of the top 100 GO terms (by
+  [`GenTable`](https://rdrr.io/pkg/topGO/man/diagnosticMethods.html)),
+  with `classicFisher` replaced by the raw numeric p-values taken
+  directly from `resultFisher@score` (rather than GenTable's
+  character-formatted, precision-truncated values) so downstream
+  consumers (e.g. [`bb_gosummary`](bb_gosummary.md)) receive a numeric
+  column.

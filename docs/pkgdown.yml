@@ -1,4 +1,4 @@
-pandoc: '3.4'
+pandoc: '3.10'
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
@@ -6,4 +6,4 @@ articles:
   blind_images: blind_images.html
   scRNAseq: scRNAseq.html
   trace: trace.html
-last_built: 2026-08-04T13:44Z
+last_built: 2026-10-02T15:57Z

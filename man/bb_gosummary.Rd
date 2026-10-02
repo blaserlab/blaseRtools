@@ -18,7 +18,17 @@ bb_gosummary(
 \item{go_db}{The database to query.  Choose from c("org.Hs.eg.db", "org.Dr.eg.db", "org.Mm.eg.db", ...).}
 }
 \value{
-A list of items for downstream plotting
+A list with three items:
+\describe{
+\item{simMatrix}{The GO term semantic similarity matrix from \code{\link[rrvgo]{calculateSimMatrix}}.}
+\item{scores}{A named numeric vector, one entry per GO term in
+\code{x$res_table}, giving \code{-log10(classicFisher)} for that
+term's enrichment p-value (from \code{x$res_table$classicFisher}).
+Higher values indicate stronger enrichment.}
+\item{reducedTerms}{The term-reduction result from
+\code{\link[rrvgo]{reduceSimMatrix}}, whose \code{score} column is
+this same \code{-log10(classicFisher)} value for each retained term.}
+}
 }
 \description{
 A function to reduce go terms by semantic similarity

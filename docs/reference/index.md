@@ -62,9 +62,6 @@
   [`SeuratWrappers-package`](SeuratWrappers-package.md) : blaseRtools: R
   Tools for Blaser Lab Data Analysis
 
-- [`SummarizedHeatmap()`](SummarizedHeatmap.md) : An S4 Class for
-  Holding Heatmap Data
-
 - [`Trace-class`](Trace-class.md) [`Trace`](Trace-class.md) : An S4
   class to Hold Genome Track Data
 
@@ -231,27 +228,6 @@
 
 - [`bb_plot_genes_in_pseudotime()`](bb_plot_genes_in_pseudotime.md) :
   Plots expression for one or more genes as a function of pseudotime
-
-- [`bb_plot_heatmap_colData()`](bb_plot_heatmap_colData.md) : Plot
-  SummarizedHeatmap colData
-
-- [`bb_plot_heatmap_colDendro()`](bb_plot_heatmap_colDendro.md) : Plot a
-  Heatmap Column Dendrogram
-
-- [`bb_plot_heatmap_colHighlight()`](bb_plot_heatmap_colHighlight.md) :
-  Plot a Column Highlight
-
-- [`bb_plot_heatmap_main()`](bb_plot_heatmap_main.md) : Plot the Body of
-  Heatmap
-
-- [`bb_plot_heatmap_rowData()`](bb_plot_heatmap_rowData.md) : Plot a
-  SummarizedHeatmap rowData
-
-- [`bb_plot_heatmap_rowDendro()`](bb_plot_heatmap_rowDendro.md) : Plot a
-  Heatmap Row Dendrogram
-
-- [`bb_plot_heatmap_rowHighlight()`](bb_plot_heatmap_rowHighlight.md) :
-  Plot a Row Highlight
 
 - [`bb_plot_rowData_col()`](bb_plot_rowData_col.md) : A helper function
   to generate a data frame in the proper form for aggregate expression

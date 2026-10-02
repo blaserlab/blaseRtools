@@ -31,9 +31,9 @@ vignette to blind and unblind images.
     directory for blinding. They will all go into the same directory for
     blinding, no matter where they come from.
 4.  R will generate a new name for the file based on a hash of the
-    original file location (not a hash of the file itself).  
+    original file location (not a hash of the file itself).\
 5.  R will generate two new files and put them in the blinded directory.
-    One is “scoresheet.csv” and the other is “blinding_key.csv”.  
+    One is “scoresheet.csv” and the other is “blinding_key.csv”.\
 6.  You score each of the images in whatever way makes the most sense
     (quantiative, semi-quantitative etc.) and add these values to a new
     column on the scoresheet. Do not open the blinding key.
@@ -43,7 +43,7 @@ vignette to blind and unblind images.
     analysis file and the column on this file with the paths to the
     original images you blinded.
 8.  R will join the blinding key and the score sheet to generate a new
-    csv file with the unblinded data.  
+    csv file with the unblinded data.\
 9.  Finally, R will rejoin the unblinded data to the analysis file and
     return that to the R session. This can be saved in a second step
     using write_csv or similar. Importantly, bb_unblind will not

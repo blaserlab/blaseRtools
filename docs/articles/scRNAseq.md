@@ -171,6 +171,7 @@ if you like.
 Getting started then:
 
 ``` r
+
 # Attach the packages you will need for the analysis.
 library(blaseRtools)
 library(blaseRdata)
@@ -187,6 +188,7 @@ Read in the analysis configuration file. Here I am reading it from the
 blaseRdata package but you would substitute your own file path.
 
 ``` r
+
 # Read in and inspect the configuration file.
 vignette_config <- read_csv(system.file("extdata/vignette_config.csv", 
                                         package = "blaseRdata"), 
@@ -217,6 +219,7 @@ translate that to a linux-compatible file path manually. Here is how you
 use that function.
 
 ``` r
+
 # Fix the windows-style file path.
 vignette_config <- vignette_config %>%
   mutate(targz_path = bb_fix_file_path(targz_path))
@@ -237,6 +240,7 @@ the purrr package to map this function across each sample in the config
 file. This will produce a list of cds objects for us.
 
 ``` r
+
 # Generate a list of CDS objects using purrr::map
 cds_list <- map(
   .x = vignette_config$sample,
@@ -271,6 +275,7 @@ returned to the CDS objects later, but the whole output of this step is
 worth saving for future reference.
 
 ``` r
+
 # generate a list of qc results for individual CDS objects
 vig_qc_res <- pmap(.l = list(cds = cds_list,
                              cds_name = names(cds_list),
@@ -283,6 +288,7 @@ vig_qc_res <- pmap(.l = list(cds = cds_list,
 For example:
 
 ``` r
+
 vig_qc_res$chromium_controller[3]
 vig_qc_res$chromium_controller[4]
 ```
@@ -299,6 +305,7 @@ We also have to supply the qc results so we only run the prediction on
 high-quality cells.
 
 ``` r
+
 
 # gets the number of cells in each cds and divides it by 100000
 anticipated_doublet_rate <- unlist(map(cds_list, ncol))/100000
@@ -322,6 +329,7 @@ doubletfinder_list <-
 Now join the qc data and the doubletfinder data back onto cds_list
 
 ``` r
+
 # rejoins doubletfinder and qc data onto the list of CDS objects
 cds_list <- pmap(
   .l = list(
@@ -336,6 +344,7 @@ cds_list <- pmap(
 ## Merging into a single cellDataSet object.
 
 ``` r
+
 # Merge the CDS list into a single CDS
 vignette_cds <- monocle3::combine_cds(cds_list = cds_list)
 ```
@@ -348,6 +357,7 @@ genes. Pre-calculated lists of genes to remove for human, mouse, and
 zebrafish are provided in the blaseRdata package.
 
 ``` r
+
 # Remove mitochondrial and ribosomal genes.
 vignette_cds <- 
   vignette_cds[rowData(vignette_cds)$gene_short_name %notin% hg38_remove_genes,]
@@ -359,6 +369,7 @@ If you like you can previzualize and select which ones you want to
 remove. I ususally just remove the high confidence doublets.
 
 ``` r
+
 # Remove the low-quality cells
 vignette_cds <- vignette_cds[,colData(vignette_cds)$qc.any == FALSE]
 
@@ -386,6 +397,7 @@ is 50. The additional variance explained with PCAs 51 and greater is
 tiny.
 
 ``` r
+
 # Calculate the PCA dimensions
 vignette_cds <- preprocess_cds(vignette_cds)
 ```
@@ -395,6 +407,7 @@ There are several options available here. You should set the number of
 cores the algorithm will use.
 
 ``` r
+
 # Calculate UMAP dimensions
 vignette_cds <- reduce_dimension(vignette_cds, cores = 40)
 ```
@@ -412,6 +425,7 @@ you want to modify or add back to the CDS object, you should use the
 form `colData(CDS)$new_column <- data`
 
 ``` r
+
 # Cell metadata
 bb_cellmeta(vignette_cds) 
 #> # A tibble: 1,160 × 16
@@ -484,6 +498,7 @@ alignment formula. Then we can save as the original CDS and discard the
 temporary object once we are satisfied.
 
 ``` r
+
 # Align samples according to the equipment metadata column
 vignette_cds_aligned_temp <- bb_align(vignette_cds, align_by = "sample")
 
@@ -493,6 +508,7 @@ rm(vignette_cds_aligned_temp)
 ```
 
 ``` r
+
 bb_var_umap(vignette_cds, var = "sample")
 ```
 
@@ -502,6 +518,7 @@ You can see that the pre-alignment dimensions are stored in the cell
 metadata so you can plot them later if you want.
 
 ``` r
+
 bb_cellmeta(vignette_cds)
 #> # A tibble: 1,160 × 16
 #>    cell_id          barcode Size_Factor date  equipment sample prealignment_dim1
@@ -523,6 +540,7 @@ bb_cellmeta(vignette_cds)
 ```
 
 ``` r
+
 bb_var_umap(vignette_cds, var = "sample", 
             alt_dim_x = "prealignment_dim1", 
             alt_dim_y = "prealignment_dim2")
@@ -547,6 +565,7 @@ underlying monocle functions. If you want to modify those (usually not
 necessary) you need to use the original monocle functions.
 
 ``` r
+
 # Identify clusters and calculate top markers
 marker_file <- tempfile()
 vignette_cds <- bb_triplecluster(vignette_cds, n_top_markers = 50, outfile = marker_file, n_cores = 8)
@@ -554,6 +573,7 @@ vignette_top_markers <- read_csv(marker_file)
 ```
 
 ``` r
+
 vignette_top_markers
 #> # A tibble: 1,100 × 11
 #>    gene_id         gene_short_name cluster_method cell_group  marker_score
@@ -577,18 +597,21 @@ vignette_top_markers
 Now you can plot the cells and color by cluster type
 
 ``` r
+
 bb_var_umap(vignette_cds, var = "partition")
 ```
 
 ![](scRNAseq_files/figure-html/unnamed-chunk-21-1.png)
 
 ``` r
+
 bb_var_umap(vignette_cds, var = "leiden")
 ```
 
 ![](scRNAseq_files/figure-html/unnamed-chunk-21-2.png)
 
 ``` r
+
 bb_var_umap(vignette_cds, var = "louvain")
 ```
 
@@ -615,11 +638,13 @@ your computer if you use too many cores. It is also non-deterministic so
 you need to save the CDS object when you are done.
 
 ``` r
+
 # Identify gene modules and add them to the gene metadata.
 vignette_cds <- bb_gene_modules(vignette_cds, n_cores = 24)
 ```
 
 ``` r
+
 bb_rowmeta(vignette_cds)
 #> # A tibble: 36,398 × 8
 #>    feature_id  id    gene_short_name data_type module module_labeled supermodule
@@ -663,6 +688,7 @@ running the analysis. Then run this, substituting in the appropriate
 file path:
 
 ``` r
+
 # Annotate the PBMC data
 vignette_cds <- bb_seurat_anno(vignette_cds, reference = "~/workspace_pipelines/sc_refdata/seurat_pbmc_reference_20210506/pbmc_multimodal.h5seurat")
 ```
@@ -672,6 +698,7 @@ It has also added suerat umap dims. These are where the cells would’ve
 landed if they were processed in the reference dataset.
 
 ``` r
+
 bb_cellmeta(vignette_cds)
 #> # A tibble: 1,160 × 16
 #>    cell_id          barcode Size_Factor date  equipment sample prealignment_dim1
@@ -695,6 +722,7 @@ bb_cellmeta(vignette_cds)
 You can plot the cells using the Seurat coordinates:
 
 ``` r
+
 bb_var_umap(vignette_cds, 
             var = "seurat_celltype_l1", 
             alt_dim_x = "seurat_dim1", 
@@ -710,6 +738,7 @@ think this method is better because it reflects the data more
 accurately.
 
 ``` r
+
 bb_var_umap(vignette_cds, var = "seurat_celltype_l1")
 ```
 
@@ -737,6 +766,7 @@ Usually you want to pick a cluster resolution that is going to be useful
 and give all of the cells in that cluster the same name.
 
 ``` r
+
 bb_var_umap(vignette_cds, var = "leiden", plot_title = "Leiden Clusters")
 ```
 
@@ -756,6 +786,7 @@ assignments as is. You can explore them visually as above or you can do
 something more quantitative.
 
 ``` r
+
 leiden_seurat <- bb_cellmeta(vignette_cds) %>%
   group_by(leiden, seurat_celltype_l1) %>%
   summarise(n = n())
@@ -782,6 +813,7 @@ If you have a complicated dataset you can use the more detailed
 seurat_celltype_l2 assignments and/or you can plot it like this:
 
 ``` r
+
 ggplot(leiden_seurat, 
        mapping = aes(x = leiden, 
                      y = n, 
@@ -796,6 +828,7 @@ Then we add a new cell metadata column by recoding the leiden column
 into our designated assignments:
 
 ``` r
+
 # Recode the leiden clusters with our cell assignments
 colData(vignette_cds)$leiden_assignment <- recode(colData(vignette_cds)$leiden, 
                                                   "1" = "T/NK",
@@ -804,6 +837,7 @@ colData(vignette_cds)$leiden_assignment <- recode(colData(vignette_cds)$leiden,
 ```
 
 ``` r
+
 bb_var_umap(vignette_cds, var = "leiden_assignment")
 ```
 
@@ -817,6 +851,7 @@ You set the variable name as the “var” argument. You can also highlight
 a specific value.
 
 ``` r
+
 bb_var_umap(vignette_cds, 
             var = "leiden_assignment", 
             value_to_highlight = "T/NK", 
@@ -831,6 +866,7 @@ have to add on a different scale. Color palettes can also be set
 internally in the function.
 
 ``` r
+
 bb_var_umap(vignette_cds, 
             var = "leiden_assignment", 
             value_to_highlight = "T/NK", 
@@ -847,6 +883,7 @@ density function to calculate the local density of cells in UMAP space
 after faceting the plot by our experimental variable.
 
 ``` r
+
 bb_var_umap(vignette_cds, 
             var = "density", 
             facet_by = "equipment", 
@@ -868,6 +905,7 @@ number of overall cells so your plot isn’t biased by the number of cells
 recovered.
 
 ``` r
+
 bb_var_umap(vignette_cds, 
             var = "local_n", 
             nbin = 10, sample_equally = T, 
@@ -879,6 +917,7 @@ bb_var_umap(vignette_cds,
 ![](scRNAseq_files/figure-html/unnamed-chunk-36-1.png)
 
 ``` r
+
 
 bb_var_umap(vignette_cds, 
             var = "log_local_n", 
@@ -897,6 +936,7 @@ Since the concept of distribution between cell states is so important,
 we have a dedicated function for plotting this.
 
 ``` r
+
 bb_cluster_representation(cds = vignette_cds, 
                           cluster_var = "leiden_assignment", 
                           class_var = "equipment", 
@@ -918,6 +958,7 @@ ggplot layers you like. If this doesn’t work for you, you can ask the
 function to return a data table which you can plot manually.
 
 ``` r
+
 bb_cluster_representation(cds = vignette_cds, 
                           cluster_var = "leiden_assignment", 
                           class_var = "equipment", 
@@ -951,6 +992,7 @@ expression in UMAP plots.
 For example:
 
 ``` r
+
 bb_gene_umap(vignette_cds, 
              gene_or_genes = "CD3D")
 ```
@@ -976,6 +1018,7 @@ We can also plot multiple individual genes or aggregate gene scores
 (e.g. modules) using this function:
 
 ``` r
+
 bb_gene_umap(vignette_cds, gene_or_genes = c("CD19", "CD3D", "CD14"))
 ```
 
@@ -986,6 +1029,7 @@ should be provided with a data frame of two columns with the first
 column being ensembl cell id and the second being the gene grouping.
 
 ``` r
+
 agg_genes <-
   bb_rowmeta(vignette_cds) %>%
   dplyr::select(id, module_labeled) %>%
@@ -1005,6 +1049,7 @@ A more information-dense way to plot these data is as a gene dotplot, or
 because of overplotting.
 
 ``` r
+
 bb_genebubbles(vignette_cds,
                genes = c("CD3E", "CD14", "CD19"), 
                cell_grouping = "leiden_assignment")
@@ -1018,6 +1063,7 @@ because of the small number of groups and genes. But you can also
 specify the order:
 
 ``` r
+
 bb_genebubbles(vignette_cds, 
                 genes = c("CD3E", "CD14", "CD19"), 
                 cell_grouping = "leiden_assignment", 
@@ -1030,6 +1076,7 @@ bb_genebubbles(vignette_cds,
 You can generate composite variables like so:
 
 ``` r
+
 bb_genebubbles(vignette_cds, 
                 genes = c("CD3E", "CD14", "CD19"), 
                 cell_grouping = c("leiden_assignment", "louvain")) +
@@ -1042,6 +1089,7 @@ For more complicated figures, you can return a tibble and make the plot
 on your own:
 
 ``` r
+
 bb_genebubbles(vignette_cds, 
                genes = c("CD3E", "CD14", "CD19"), 
                cell_grouping = c("leiden_assignment", "louvain"),
@@ -1139,6 +1187,7 @@ are working with, “sample” identifies the biological replicates and
 are no other non-redundant sample variables.
 
 ``` r
+
 vignette_exp_design <- 
   bb_cellmeta(vignette_cds) %>%
   group_by(sample, leiden_assignment) %>%
@@ -1162,6 +1211,7 @@ or cell cluster. For this simple comparison, we are now ready to run the
 pseudobulk function.
 
 ``` r
+
 vignette_pseudobulk_res <-
   bb_pseudobulk_mf(cds = vignette_cds,
                    pseudosample_table = vignette_exp_design, 
@@ -1172,6 +1222,7 @@ vignette_pseudobulk_res <-
 Now explore the result:
 
 ``` r
+
 # Detailed column headers for the results tables.
 vignette_pseudobulk_res$Header 
 #> [1] "mean of normalized counts for all samples"                
@@ -1183,6 +1234,7 @@ vignette_pseudobulk_res$Header
 ```
 
 ``` r
+
 # Differential expression results.  Positive L2FC indicates up in T/NK vs DC/Mono
 
 vignette_pseudobulk_res$Result %>%
@@ -1274,6 +1326,7 @@ The blaseRtools package has a function that wraps the multivariate
 regression function from *monocle3* and add some minor functionality.
 
 ``` r
+
 vignette_regression_res <- bb_monocle_regression_better(cds = vignette_cds, 
                       gene_or_genes = c("CD19", "CD3D", "CD14"), 
                       form = "~leiden_assignment")
@@ -1296,6 +1349,7 @@ vignette_regression_res
 If you look at the term column you can see the comparisons being made:
 
 ``` r
+
 vignette_regression_res$term
 #> [1] "leiden_assignmentDC/Mono"        "leiden_assignmentB"             
 #> [3] "stats::offset(log(Size_Factor))" "leiden_assignmentDC/Mono"       
